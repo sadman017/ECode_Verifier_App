@@ -32,3 +32,15 @@ const String signupWithGoogle = "Sign-up With Google";
 const String signupWithFacebook = "Sign-up With Facebook";
 const String signupWithTwittterr = "Sign-up With Twitter";
 const String signupWithTiktok = "Sign-up With Tiktok";
+
+// --Forget Password Text
+const String forgetPassTitle = "Make Selection";
+const String forgetPassSubTitle = "Select one of the given options to reset your password";
+const String resetViaEmail = "Reset Via Email Verification";
+const String resetViaMoile = "Reset Via Mobile Number Verificaton";
+
+// --OTP Screen Text
+const String otpTitle = "CO\nDE";
+const String otpSubTitle = "Verification";
+const String otpMsg = "Enter the verification code sent at";
+
