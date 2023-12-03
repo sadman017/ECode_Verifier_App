@@ -3,6 +3,7 @@ import 'package:ecode_verrifier/src/constants/image_strings.dart';
 import 'package:ecode_verrifier/src/constants/size.dart';
 import 'package:ecode_verrifier/src/constants/text_string.dart';
 import 'package:ecode_verrifier/src/features/authentication/screens/login/login.dart';
+import 'package:ecode_verrifier/src/features/authentication/screens/signup/signup.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -45,16 +46,10 @@ class Welcome extends StatelessWidget{
                   const SizedBox(
                     width: 10.0,
                   ),
-                  Expanded(child: OutlinedButton(
-                  onPressed: () {  },
-                  style: OutlinedButton.styleFrom(
-                    shape: const RoundedRectangleBorder(),
-                    foregroundColor: secondaryColor,
-                    backgroundColor: secondaryColor,
-                    side: const BorderSide(color: secondaryColor),
-                    padding: const EdgeInsets.symmetric(vertical: buttonHeight),
-                  ),
-                  child: Text(signup.toUpperCase(), selectionColor: isDarkMode ? Colors.white: Colors.black,),
+                  Expanded(child: ElevatedButton(
+                  onPressed: () { Get.to(const Signup()); },
+                  
+                  child: Text(signup.toUpperCase()),
                   )
                   ),
               ],

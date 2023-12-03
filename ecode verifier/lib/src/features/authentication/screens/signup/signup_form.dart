@@ -22,10 +22,8 @@ class SignupForm extends StatelessWidget{
           children: [
             TextFormField(
               decoration: const InputDecoration(
-                prefixIcon: Icon(Icons.person_outline_outlined),
-                labelText: user,
-                hintText: user,
-                border: OutlineInputBorder()
+                label: Text(user),
+                prefixIcon: Icon(Icons.person_outline_rounded),
               ),
             ),
             const SizedBox(height: formHeight - 20,),
@@ -34,7 +32,6 @@ class SignupForm extends StatelessWidget{
                 prefixIcon: Icon(Icons.email_outlined),
                 labelText: email,
                 hintText: email,
-                border: OutlineInputBorder()
               ),
             ),
             const SizedBox(height: formHeight - 20,),
@@ -43,7 +40,6 @@ class SignupForm extends StatelessWidget{
                 prefixIcon: Icon(Icons.key_outlined),
                 labelText: pass,
                 hintText: pass,
-                border: OutlineInputBorder(),
                 suffixIcon: IconButton(
                   onPressed: null, 
                   icon: Icon(Icons.remove_red_eye_sharp),

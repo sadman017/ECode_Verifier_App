@@ -15,23 +15,18 @@ class SignupFooterWidget extends StatelessWidget {
       const SizedBox(height: formHeight - 20,),
       SizedBox(
         width: double.infinity,
-        child: OutlinedButton.icon(onPressed: () {}, icon: const Image(image: AssetImage(googleLogo), width: 10,), 
+        child: OutlinedButton.icon(onPressed: () {}, icon: const Image(image: AssetImage(googleLogo), width: 20,), 
         label: const Text(signupWithGoogle)),
       ),
       SizedBox(
         width: double.infinity,
-        child: OutlinedButton.icon(onPressed: () {}, icon: const Image(image: AssetImage(facebookLogo), width: 10,), 
+        child: OutlinedButton.icon(onPressed: () {}, icon: const Image(image: AssetImage(facebookLogo), width: 20,), 
         label: const Text(signinWithFacebook)),
       ),
       SizedBox(
         width: double.infinity,
-        child: OutlinedButton.icon(onPressed: () {}, icon: const Image(image: AssetImage(twitterLogo), width: 10,), 
+        child: OutlinedButton.icon(onPressed: () {}, icon: const Image(image: AssetImage(twitterLogo), width: 20,), 
         label: const Text(signupWithTwittterr)),
-      ),
-      SizedBox(
-        width: double.infinity,
-        child: OutlinedButton.icon(onPressed: () {}, icon: const Image(image: AssetImage(tiktokLogo), width: 10,), 
-        label: const Text(signupWithTiktok)),
       ),
       const SizedBox(height: formHeight - 20,),
       TextButton(

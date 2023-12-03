@@ -1,5 +1,7 @@
 import 'package:ecode_verrifier/src/common_widgets/form/form_header.dart';
+import 'package:ecode_verrifier/src/constants/image_strings.dart';
 import 'package:ecode_verrifier/src/constants/size.dart';
+import 'package:ecode_verrifier/src/constants/text_string.dart';
 import 'package:ecode_verrifier/src/features/authentication/screens/signup/signup_footer.dart';
 import 'package:ecode_verrifier/src/features/authentication/screens/signup/signup_form.dart';
 import 'package:flutter/material.dart';
@@ -123,7 +125,7 @@ class SignupPage extends  StatelessWidget{
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                FormHeaderWidget(size: size, image: 'welcomeScreen', title: 'signupTitle',),
+                FormHeaderWidget(size: size, image: welcomeScreen, title: signupTitle,),
                 SignupForm(),
                 const SignupFooterWidget(),
               ],
