@@ -1,0 +1,278 @@
+\documentclass[a4paper,12pt]{report}
+\usepackage{amsmath,amsfonts,amssymb,enumerate,graphicx,fancyhdr,times}
+\usepackage{tabularx,float,xspace,float,caption,setspace,hyperref}
+\usepackage[top=1in, left = 1in, right = 1in, bottom = 1in]{geometry}
+\usepackage[utf8]{inputenc}
+
+\pagestyle{fancyplain}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0px}
+\fancyfoot[R]{\thepage}
+\parindent 0px
+
+\begin{document}
+\begin{titlepage}
+	\begin{minipage}[t][3cm][b]{.2\linewidth}
+		\includegraphics[width=2.5cm, keepaspectratio]{cuet.png} \par \vspace{0.5cm}
+	\end{minipage}
+	\begin{minipage}[t][4cm][t]{.75\linewidth}
+		\raggedleft
+		\vspace{0.1cm}
+		{\bfseries \Large CHITTAGONG UNIVERSITY OF ENGINEERING \& TECHNOLOGY}
+		\par
+		\vspace{.5cm}
+		{DEPARTMENT OF COMPUTER SCIENCE AND ENGINEERING}
+	\end{minipage}
+
+	\centering
+
+	\vspace{1cm}
+
+	\raisebox{-\baselineskip}{\rule{\textwidth}{1px}}
+
+	\rule{\textwidth}{1px}
+
+	\vspace{0.2cm}
+	{\large{{REPORT TITLE}}}\par \vspace{0.3cm}
+	\Large{{Requirements Specification of the Project on \bfseries{E-code Analyzer}}}
+	\rule{\textwidth}{2px}
+
+	\vspace{0.5cm}
+
+	\normalsize
+	\begin{tabular}{cl}
+		COURSE CODE        & : CSE 356                          \\
+		COURSE NAME        & : SOFTWARE ENGINEERING (SESSIONAL) \\
+		EXPERIMENT NO      & : 02                               \\
+		DATE OF SUBMISSION & : 28 -- 11 -- 2023                 \\
+	\end{tabular}
+
+	\vspace{2cm}
+	\begin{center}
+		\includegraphics[width=4cm, keepaspectratio]{remarks.png}
+		\captionof*{figure}{REMARKS}
+	\end{center}
+	\parbox[l]{.5\linewidth}{\begin{center}
+			Submitted By
+		\end{center}
+		\raggedright
+		\begin{tabular}{ll}
+			MD AKIB HASAN        & 1904015 \\[.1cm]
+			K.M. MAHABUB HOSSAIN & 1904017 \\[.1cm]
+			SADMAN RAHMAN ANANTA & 1904020 \\
+		\end{tabular}
+	}
+	\parbox[r]{7.8cm}{\vspace{1.5cm}
+	\begin{center}
+		Supervised By
+	\end{center}
+	\raggedleft
+	Annesha Das\\
+	{\footnotesize
+	Assistant Professor \\
+	Department of CSE, CUET}\\[0.5cm]
+
+	Sabiha Anan\\
+	{\footnotesize
+	Assistant Professor \\
+	Department of CSE, CUET}
+
+	}
+
+	\vfill
+\end{titlepage}
+
+
+\onehalfspacing
+
+\section*{Introduction}
+
+Requirements engineering tasks are conducted to establish a solid foundation for design and construction phase. It occurs during communication and modeling activities that have been defined for generic process. Seven distinct requirements engineering functions-- inception, elicitation, negotiation, specification, validation, and management or final specification are conducted by analyst as well as software team. As requirements are identified and the model is being created, final SRS is defined within software team and stakeholders by priority, availability, and constrains with proper validation process.
+
+E-numbers, short for Europe numbers, are codes assigned to substances used as food additives, which corresponds to a specific food additive and is used as a labeling system on food products to inform consumers about the presence of these additives.
+
+\section*{Scope}
+Codes are used on food labels to indicate the presence of specific additives, which can include substances found naturally in foods such as vitamin C (E300), vitamin B2 (E101) or artificial additives avoparcin (E715) which is currently banned in EU.
+
+Packaged products are one of the integral part of our daily life. Being often interested in knowing what substances are present in our food. Due to growth and establishment of science and chemistry artificial substances has become popular among business products and that's why the idea of crosschecking of those gained importance recently in Muslims, vegetarians etc. communities.
+
+Such as Muslims are not allowed to eat pork meat or anything comes from it \cite{muslim_pork_avoid} or vegans avoid any living animal produced products etc. There are some substances that can be harmful in various conditions as well as allergies in human body.
+
+Therefore, we expect a platform within our reach frequently with many features such as--
+\begin{itemize}
+	\item Determining Halal, Haram substances in packaged products.
+	\item Differentiate between food and other products for vegans and vegetarians.
+	\item Easy identification of the presence of harmful substances and additives in packaged food.
+	\item Providing valid references and information sources for various qualities of artificial substances and additives.
+\end{itemize}
+
+
+\section*{Identifying Stakeholders}
+Stakeholders are defined as \emph{anyone who benefits
+	in a direct or indirect way from the system which is being developed}.
+According to our project there are various types of stakeholders and users contribute to its success and effectiveness. Here's a possible list of primary stakeholders and users:
+\begin{enumerate}
+	\item Packaged product consumers: Individuals who want to make informed, and healthy food choices based on their health conditions, allergies, or religious preferences. This includes parents, pregnant women, those with specific dietary needs, and health-conscious consumers.
+	\item Allergy Support Groups: Individuals with allergies and members of allergy support groups who seek a tool to easily identify potential allergens in food products and share information with their communities.
+	\item Religious Communities: People with strong religious beliefs that follow specific dietary guidelines, such as those adhering to Halal or Kosher practices. The app can assist them in making choices aligned with their religious beliefs.
+	\item Special Communities: Vegetarians, vegans, diet and other types lifestyle followers are very crucial. This project can help them to maintain their perspective diet and food choices.
+	\item Educational Institutions: Students, teachers, and researchers in fields such as nutrition, food science, and public health who use the app for educational purposes, research, or as a reference tool.
+	\item App Developers and Maintenance Teams: Developers and technical support teams responsible for maintaining and improving the app. They may use user feedback and analytics to enhance the app's features and user experience.
+\end{enumerate}
+
+Furthermore, there can be listed some second tier stakeholders who are not power user right now but will be vital on a longer scale. Therefore, their requirements can be included later development process, such as--
+\begin{itemize}
+	\item Community Leaders and Advocacy Groups,
+	\item Advertisers and Marketers,
+	\item Healthcare Professionals,
+	\item Food Industry Professionals,
+	\item Government and Regulatory Bodies etc.
+\end{itemize}
+
+Understanding the diverse needs and expectations of these stakeholders and users is crucial for the ongoing development and success of the E-Number project.
+\section*{Stakeholders Requirements}
+Different types of stakeholders are chosen from the primary user group such as-- religious group, vegans, vegetarians, general consumer, educational purposes etc.
+\subsection*{User 1}
+First user is chosen as the representative of Religious community, general user and probable user of the platform as researcher. His requirements are listed below--
+
+\parbox{.7\linewidth}{
+	\begin{itemize}
+		\item As a Muslim, I expect to see a proper Halal/Haram check for E-numbers.
+		\item The UI should be user-friendly and attractive.
+		\item Information about why the product is Haram or Mushbooh.
+	\end{itemize}
+}
+\parbox[m]{.3\linewidth}{
+\raggedleft
+Md. Shamim Uddin\\
+{\footnotesize
+Department of EEE, CUET}
+}
+\subsection*{User 2}
+Second user is also chosen as the representative of Muslim community, general user. His requirements are listed below--
+
+\parbox{.7\linewidth}{
+	\begin{itemize}
+		\item Halal/Haram check for E-numbers.
+		\item The UI should be user-friendly and attractive.
+		\item App should respond quickly.
+		\item AI camera to locate E-code from ingredients.
+		\item Up-to-date data
+	\end{itemize}
+}
+\parbox[m]{.3\linewidth}{
+\raggedleft
+Ariful Islam Arif\\
+{\footnotesize
+Department of EEE, CUET}
+}
+
+\subsection*{User 3}
+A user with allergic concern is included as user 3. His requirements are listed below--
+
+\parbox{.7\linewidth}{
+	\begin{itemize}
+		\item Want to know if the product contains any kind of allergic substances such as gluten, milk etc.
+		\item Shows salt quantity.
+		\item If the product contains mustard, lupin, celery etc.
+		\item Soybeans and sesame seeds quantity should be included.
+		\item Should add details about who gets allergies.
+	\end{itemize}}
+\parbox[m]{.3\linewidth}{
+\raggedleft
+K. M. Samir\\
+{\footnotesize
+Department of EEE, CUET}
+}
+
+\subsection*{User 4}
+Fourth user is chosen as the representative of Vegetarian and keto community, general user and probable user of the platform as researcher. Her requirements are listed below--
+
+\parbox{.69\linewidth}{
+	\begin{itemize}
+		\item Want to know whether examined product is keto-friendly or not.
+		\item I want to see a diet plan on the app.
+		\item Nutrition list of the product should be provided.
+		\item Should check if the product is low-carb or not.
+		\item The app should respond fast.
+		\item The information should be user specific.
+		\item There should be a fluidity to change between user preferences.
+		\item The product should be vegetarian friendly.
+	\end{itemize}}
+\parbox[m]{.3\linewidth}{
+\raggedleft
+Annesha Das\\
+{\footnotesize
+Assistant Professor \\
+Department of CSE, CUET}\\
+}
+
+\subsection*{User 5}
+Final user is chosen as the representative of Vegan community and general user. His requirements are listed below--
+
+\parbox{.69\linewidth}{
+	\begin{itemize}
+		\item As I am from Vegan community, expecting to see proper vegan check of E-Codes.
+		\item Please don't mess up with vegetarian community.
+		\item This app should provide information about eggs, milk, honey, gelatin etc.
+		\item Harmful E-Codes should be detected which cause hyperactivity in children and can even cause cancer.
+		\item Want the UI to be more interactive and easy to use.
+	\end{itemize}}
+\parbox[m]{.3\linewidth}{
+\raggedleft
+Anindya Saha\\
+{\footnotesize
+Department of EEE, CUET}\\
+}
+
+Regular feedback loops, and continuous improvement efforts can help to address the evolving user requirements and maintain the app's relevance in the dynamic landscape of health and nutrition.
+
+\section*{Final Requirements Specification}
+After discussion with various stakeholders and specially with developers and analyst on various aspect such as priority, feasibility and constrains(time, cost, values) final specification of requirements are modeled. This model completely depicts the requirement work product with proper stakeholders validation and other steps. The final specifications are listed below--
+\begin{description}
+	\item [1. E-number check] Search and identify E-numbers on food labels with detailed information about each additive, including its purpose and potential health effects.
+	\item [2. Halal/Haram information] Religious preferences to filter out E-numbers that may not align with the dietary restrictions or religious guidelines.
+	\item [3. Allergy Alerts] Provide instant alerts when a product contains an E-number associated with your specified allergies such as gluten, milk, mustard, lupin, celery, soybeans and sesame seeds etc.
+	\item [4. Personalized Profiles] Create a personal profile with credentials for a customized experience where user can input health conditions, allergies, and religious preferences to the app and change for specific needs.
+	\item [5. Vegan and Vegetarian information] Distinct E-numbers data about the diet followed by vegans and vegetarians community.
+	\item [6. Nutritional Information] Access nutritional details for each E-number to make informed decisions and research about diet with calorie counts, macronutrients, and other essential information that can be manipulated by the additives.
+	\item [7. Data Sources] Provide multiple Accurate data sources for information(Halal/Haram) about E-numbers or concerned additives.
+	\item [8. User Friendly environment] Ensure user-friendly and attractive UI with various features such as barcode scanner etc.
+\end{description}
+
+However, several requirements have not been included to the final specification within negotiation and validation part evaluating some basic criteria such as --
+\begin{itemize}
+	\item Lack of user interest or relevance,
+	\item Development complexity,
+	\item Technical feasibility,
+	\item User experience impact,
+	\item Future roadmap alignment etc.
+\end{itemize}
+
+Some items have got rejected for various reasons, such as--
+\begin{itemize}
+	\item Diet plan: This project is focused on E-numbers and its health hazards. We can show some of nutritional effects such as crab level on some additives but diet plan and other specific item such keto is totally irrelevant.
+	\item Limited allergic data: Allergic data can be shown only well researched and predefined items, and it's more than (personal) pathological rather than general issue which must be consulted with specialists.
+	\item AI camera: This platform idolizes minimalist user resource usage therefore using AI camera for bulk processing is redundant. Although it can be integrated later for improved user experience.
+	\item Detailed Information: Scientific research and fatwa for several E-numbers are left for user to collect. Actual information sources are included whereas the detailed explanation has less interest in this project.
+\end{itemize}
+
+\section*{Development Tools}
+There are various tools we are expecting to use in this project. Such as--
+\begin{itemize}
+	\item Flutter
+	\item Firebase
+	\item Flutter gallery, driver, flutterflow, canva
+	\item Google play etc.
+\end{itemize}
+\section*{Conclusion}
+At project inception, stakeholders establish basic problem requirements, define overriding constrains, and address major features and functions to meet the projects objectives. This requirements are refined and expanded during elicitation, elaboration etc. following steps.
+A well documented and user satisfactory platform with good concern in religious and other social obligation and solid information sources can play a vital role in healthy life.
+
+
+
+\renewcommand{\bibname}{\Large Reference}
+\bibliographystyle{ieeetr}
+\bibliography{reference}
+
+\end{document}
