@@ -33,7 +33,7 @@ class OTPScreen extends StatelessWidget{
               numberOfFields: 6,
               fillColor: Colors.transparent.withOpacity(0.1),
               filled: true,
-              onSubmit: (code){ print("OTP is => $code");},
+              onSubmit: (code){ debugPrint("OTP is => $code");},
             ),
             const SizedBox(height: 20.0,),
             SizedBox(
