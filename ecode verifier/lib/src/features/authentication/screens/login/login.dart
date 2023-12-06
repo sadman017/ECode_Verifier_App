@@ -1,7 +1,9 @@
+import 'package:ecode_verrifier/src/common_widgets/form/form_header.dart';
+import 'package:ecode_verrifier/src/constants/image_strings.dart';
 import 'package:ecode_verrifier/src/constants/size.dart';
+import 'package:ecode_verrifier/src/constants/text_string.dart';
 import 'package:ecode_verrifier/src/features/authentication/screens/login/login_footer_widget.dart';
 import 'package:ecode_verrifier/src/features/authentication/screens/login/login_form_widget.dart';
-import 'package:ecode_verrifier/src/features/authentication/screens/login/login_header_widget.dart';
 import 'package:flutter/material.dart';
 
 class Login extends  StatelessWidget{
@@ -18,7 +20,10 @@ class Login extends  StatelessWidget{
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                LoginHeaderWidget(size: size),
+                FormHeaderWidget(size: size,
+                image: welcomeScreen,
+                title: loginTitle,
+                ),
                 const LoginForm(),
                 const LoginFooterWidget(),
               ],
