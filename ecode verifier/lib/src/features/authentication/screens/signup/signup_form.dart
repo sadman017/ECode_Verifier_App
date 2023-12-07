@@ -1,26 +1,25 @@
 import 'package:ecode_verrifier/src/constants/size.dart';
 import 'package:ecode_verrifier/src/constants/text_string.dart';
+import 'package:ecode_verrifier/src/features/authentication/controllers/signup_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-class CheckboxController extends GetxController{
-  RxBool isChecked = false.obs;
-}
 
 class SignupForm extends StatelessWidget{
    SignupForm({super.key});
 
-  final CheckboxController controller = Get.put(CheckboxController());
-
+  final controller = Get.put(SignupController());
+  final _formkey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    return Form(
-      child: Container(
-        padding: const EdgeInsets.symmetric(vertical: formHeight - 10),
+    return Container(
+       padding: const EdgeInsets.symmetric(vertical: formHeight - 10),
+      child:Form(
+        key: _formkey,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             TextFormField(
+              controller:  controller.userName,
               decoration: const InputDecoration(
                 label: Text(user),
                 prefixIcon: Icon(Icons.person_outline_rounded),
@@ -28,6 +27,7 @@ class SignupForm extends StatelessWidget{
             ),
             const SizedBox(height: formHeight - 20,),
             TextFormField(
+              controller: controller.email,
               decoration: const InputDecoration(
                 prefixIcon: Icon(Icons.email_outlined),
                 labelText: email,
@@ -36,6 +36,7 @@ class SignupForm extends StatelessWidget{
             ),
             const SizedBox(height: formHeight - 20,),
             TextFormField(
+              controller: controller.password,
                decoration: const InputDecoration(
                 prefixIcon: Icon(Icons.key_outlined),
                 labelText: pass,
@@ -49,6 +50,7 @@ class SignupForm extends StatelessWidget{
             ),
             const SizedBox(height: formHeight - 20,),
             TextFormField(
+              controller: controller.mobileNo,
               decoration: const InputDecoration(
                 prefixIcon: Icon(Icons.phone_android),
                 labelText: number,
@@ -59,21 +61,13 @@ class SignupForm extends StatelessWidget{
             const SizedBox(
               height: formHeight - 20,
             ),
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Obx(
-        () => CheckboxListTile(
-          title:const Text(rememberMe),
-          value: controller.isChecked.value,
-          onChanged: (value) {
-            controller.isChecked.value = value!;
-          },
-        ),
-      ),
-            ),
             SizedBox(
               width: double.infinity,
-              child: ElevatedButton(onPressed: () {}, 
+              child: ElevatedButton(onPressed: () {
+                if(_formkey.currentState!.validate()){
+                  SignupController.instance.registerUser(controller.email.text.trim(), controller.password.text.trim());
+                }
+              }, 
               child: Text(signup.toUpperCase()),
               ),
             )

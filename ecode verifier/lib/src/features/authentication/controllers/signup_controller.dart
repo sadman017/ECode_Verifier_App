@@ -1,3 +1,4 @@
+import 'package:ecode_verrifier/src/repository/authentication_repository/authentication_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -7,4 +8,9 @@ class SignupController extends GetxController{
   final password = TextEditingController();
   final userName = TextEditingController();
   final mobileNo = TextEditingController();
+
+  void registerUser(String email, String password){
+    AuthenticationRepository.instance.createUserWithEmailAndPassword(email, password);
+    
+  }
 }
