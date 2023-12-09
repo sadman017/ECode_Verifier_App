@@ -1,8 +1,8 @@
-import 'package:ecode_verrifier/src/constants/colors.dart';
-import 'package:ecode_verrifier/src/constants/image_strings.dart';
-import 'package:ecode_verrifier/src/constants/size.dart';
-import 'package:ecode_verrifier/src/constants/text_string.dart';
-import 'package:ecode_verrifier/src/features/authentication/controllers/splash_screen_controller.dart';
+import 'package:ecode_verifier/src/constants/colors.dart';
+import 'package:ecode_verifier/src/constants/image_strings.dart';
+import 'package:ecode_verifier/src/constants/size.dart';
+import 'package:ecode_verifier/src/constants/text_string.dart';
+import 'package:ecode_verifier/src/features/authentication/controllers/splash_screen_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

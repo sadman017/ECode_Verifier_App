@@ -1,6 +1,6 @@
-import 'package:ecode_verrifier/src/constants/size.dart';
-import 'package:ecode_verrifier/src/constants/text_string.dart';
-import 'package:ecode_verrifier/src/features/authentication/screens/forget_password/forget_password_options/forget_password_modal_bottom_sheet.dart';
+import 'package:ecode_verifier/src/constants/size.dart';
+import 'package:ecode_verifier/src/constants/text_string.dart';
+import 'package:ecode_verifier/src/features/authentication/screens/forget_password/forget_password_options/forget_password_modal_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 
 class LoginForm extends StatelessWidget{

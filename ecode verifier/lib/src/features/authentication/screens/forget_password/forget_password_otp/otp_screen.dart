@@ -1,5 +1,5 @@
-import 'package:ecode_verrifier/src/constants/size.dart';
-import 'package:ecode_verrifier/src/constants/text_string.dart';
+import 'package:ecode_verifier/src/constants/size.dart';
+import 'package:ecode_verifier/src/constants/text_string.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:google_fonts/google_fonts.dart';

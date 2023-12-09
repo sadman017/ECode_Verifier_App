@@ -1,9 +1,9 @@
-import 'package:ecode_verrifier/src/common_widgets/form/form_header.dart';
-import 'package:ecode_verrifier/src/constants/image_strings.dart';
-import 'package:ecode_verrifier/src/constants/size.dart';
-import 'package:ecode_verrifier/src/constants/text_string.dart';
-import 'package:ecode_verrifier/src/features/authentication/screens/signup/signup_footer.dart';
-import 'package:ecode_verrifier/src/features/authentication/screens/signup/signup_form.dart';
+import 'package:ecode_verifier/src/common_widgets/form/form_header.dart';
+import 'package:ecode_verifier/src/constants/image_strings.dart';
+import 'package:ecode_verifier/src/constants/size.dart';
+import 'package:ecode_verifier/src/constants/text_string.dart';
+import 'package:ecode_verifier/src/features/authentication/screens/signup/signup_footer.dart';
+import 'package:ecode_verifier/src/features/authentication/screens/signup/signup_form.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

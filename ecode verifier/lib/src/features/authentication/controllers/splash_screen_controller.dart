@@ -1,4 +1,4 @@
-import 'package:ecode_verrifier/src/features/authentication/screens/welcome/welcome_screen.dart';
+import 'package:ecode_verifier/src/features/authentication/screens/welcome/welcome_screen.dart';
 import 'package:get/get.dart';
 
 class SplashScreenController extends GetxController{

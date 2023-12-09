@@ -1,6 +1,6 @@
-import 'package:ecode_verrifier/src/constants/image_strings.dart';
-import 'package:ecode_verrifier/src/constants/size.dart';
-import 'package:ecode_verrifier/src/constants/text_string.dart';
+import 'package:ecode_verifier/src/constants/image_strings.dart';
+import 'package:ecode_verifier/src/constants/size.dart';
+import 'package:ecode_verifier/src/constants/text_string.dart';
 import 'package:flutter/material.dart';
 
 class SignupFooterWidget extends StatelessWidget {

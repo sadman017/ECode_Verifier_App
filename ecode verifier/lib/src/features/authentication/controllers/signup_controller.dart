@@ -1,4 +1,4 @@
-import 'package:ecode_verrifier/src/repository/authentication_repository/authentication_repository.dart';
+import 'package:ecode_verifier/src/repository/authentication_repository/authentication_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

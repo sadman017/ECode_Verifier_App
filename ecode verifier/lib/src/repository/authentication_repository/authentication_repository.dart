@@ -1,6 +1,6 @@
-import 'package:ecode_verrifier/src/features/authentication/screens/Home/home.dart';
-import 'package:ecode_verrifier/src/features/authentication/screens/welcome/welcome_screen.dart';
-import 'package:ecode_verrifier/src/repository/authentication_repository/exception/signup_failure.dart';
+import 'package:ecode_verifier/src/features/authentication/screens/Home/home.dart';
+import 'package:ecode_verifier/src/features/authentication/screens/welcome/welcome_screen.dart';
+import 'package:ecode_verifier/src/repository/authentication_repository/exception/signup_failure.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:firebase_auth/firebase_auth.dart';

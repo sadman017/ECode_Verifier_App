@@ -1,4 +1,4 @@
-import 'package:ecode_verrifier/src/constants/colors.dart';
+import 'package:ecode_verifier/src/constants/colors.dart';
 import 'package:flutter/material.dart';
 
 class TTextFormFieldTheme {

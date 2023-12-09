@@ -1,8 +1,8 @@
-import 'package:ecode_verrifier/src/constants/size.dart';
-import 'package:ecode_verrifier/src/constants/text_string.dart';
-import 'package:ecode_verrifier/src/features/authentication/screens/forget_password/forget_password_email/forget_password_email.dart';
-import 'package:ecode_verrifier/src/features/authentication/screens/forget_password/forget_password_options/forget_passwoord_widget.dart';
-import 'package:ecode_verrifier/src/features/authentication/screens/forget_password/otp_screen.dart';
+import 'package:ecode_verifier/src/constants/size.dart';
+import 'package:ecode_verifier/src/constants/text_string.dart';
+import 'package:ecode_verifier/src/features/authentication/screens/forget_password/forget_password_email/forget_password_email.dart';
+import 'package:ecode_verifier/src/features/authentication/screens/forget_password/forget_password_options/forget_passwoord_widget.dart';
+import 'package:ecode_verifier/src/features/authentication/screens/forget_password/forget_password_otp/otp_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

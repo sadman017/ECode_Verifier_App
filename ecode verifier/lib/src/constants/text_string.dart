@@ -1,9 +1,9 @@
 //App Text Strings
 
-const String appName = "E-Code Verrifier";
+const String appName = "E-Code Verifier";
 
 //Welcome Screen Text
-const String welcomeTitle = "Verrify Ecode Of Your Product";
+const String welcomeTitle = "Verify Ecode Of Your Product";
 const String welcomeSubTitle = "Know product category, nutrition value and many more";
 
 //--Generic Text
@@ -31,7 +31,6 @@ const String number = "Mobile Number";
 const String signupWithGoogle = "Sign-up With Google";
 const String signupWithFacebook = "Sign-up With Facebook";
 const String signupWithTwittterr = "Sign-up With Twitter";
-const String signupWithTiktok = "Sign-up With Tiktok";
 
 // --Forget Password Text
 const String forgetPassTitle = "Make Selection";
