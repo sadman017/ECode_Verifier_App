@@ -37,9 +37,11 @@ dependencies:
   cupertino_icons: ^1.0.2
   google_fonts: ^6.1.0
   get: ^4.6.6
+  gap: ^3.0.1
   flutter_otp_text_field: ^1.1.1
   firebase_core: ^2.24.0
   firebase_auth: ^4.15.0
+  cloud_firestore: ^4.13.5
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -72,7 +74,6 @@ flutter:
     - assets/images/forgot-password.webp
     - assets/logo/facebook.png
     - assets/logo/google.png
-    - assets/logo/tiktok.png
     - assets/logo/twitter.png
 
   # An image asset can refer to one or more resolution-specific "variants", see

@@ -19,7 +19,6 @@ const String forgetPass = "Forget Password";
 const String noAccount = "Don't Have An Account";
 const String signinWithFacebook = "Sign-in With Facebook";
 const String signinWithTwittterr = "Sign-in With Twitter";
-const String signinWithTiktok = "Sign-in With Tiktok";
 const String user = "Username";
 const String pass = "Password";
 
