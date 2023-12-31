@@ -2,113 +2,118 @@ import 'package:ecode_verifier/src/common_widgets/form/form_header.dart';
 import 'package:ecode_verifier/src/constants/image_strings.dart';
 import 'package:ecode_verifier/src/constants/size.dart';
 import 'package:ecode_verifier/src/constants/text_string.dart';
+import 'package:ecode_verifier/src/features/authentication/controllers/preference_controller.dart';
 import 'package:ecode_verifier/src/features/authentication/screens/signup/signup_footer.dart';
 import 'package:ecode_verifier/src/features/authentication/screens/signup/signup_form.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class PreferenceController extends GetxController {
-  RxBool hasAllergies = RxBool(false);
-  RxBool wantNutritionFacts = RxBool(false);
-  RxList<String> selectedAllergens = <String>[].obs;
-}
+class QuestionPage extends StatelessWidget {
+ final controller = Get.put(QuestionController());
 
-class Signup extends StatelessWidget{
-   const Signup({super.key});
+   QuestionPage({super.key});
 
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Preference'),
-      ),
-      body: Column(
+ @override
+ Widget build(BuildContext context) {
+  return Scaffold(
+    appBar: AppBar(title: const Text('Questions')),
+    body: Center(
+      child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const Text("Which type of data do you want?"),
-          ElevatedButton.icon(onPressed: () => Get.to(const SecondPage()), icon: const Icon(Icons.navigate_next),
-          label: const Text('Next'),
-           ),
-        ],
-      )
-    );
-  }
-  
-
-}
-class SecondPage extends StatelessWidget {
-  const SecondPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Allergy Related Information')),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const Text('Do you have Allergies?'),
-          ElevatedButton.icon(
+        children: <Widget>[
+          Obx(() {
+            switch (controller.currentPage.value) {
+              case 0:
+               return Column(
+                children: [
+                  const Text('Which type of data do you want?'),
+                  ...DietType.values.map((e) {
+                    return ListTile(
+                      title: Text(e.toString().split('.').last),
+                      trailing: Radio(
+                        value: e,
+                        groupValue: controller.dietType.value,
+                        onChanged: (DietType? value) {
+                          controller.selectDietType(value!);
+                        },
+                      ),
+                    );
+                  }).toList(),
+                ],
+               );
+              case 1:
+               return Column(
+                children: [
+                  const Text('Do you have allergies?'),
+                  ...AllergyResponse.values.map((e) {
+                    return ListTile(
+                      title: Text(e.toString().split('.').last),
+                      trailing: Radio(
+                        value: e,
+                        groupValue: controller.hasAllergies.value,
+                        onChanged: (AllergyResponse? value) {
+                          controller.selectHasAllergies(value!);
+                        },
+                      ),
+                    );
+                  }).toList(),
+                ],
+               );
+              case 2:
+               return Column(
+                children: [
+                  const Text('Specify your allergen:'),
+                  ...Allergen.values.map((e) {
+                    return ListTile(
+                      title: Text(e.toString().split('.').last),
+                      trailing: Radio(
+                        value: e,
+                        groupValue: controller.allergen.value,
+                        onChanged: (Allergen? value) {
+                          controller.selectAllergen(value!);
+                        },
+                      ),
+                    );
+                  }).toList(),
+                ],
+               );
+              case 3:
+               return Column(
+                children: [
+                  const Text('Do you want to see the nutrition facts?'),
+                  ...NutritionFactResponse.values.map((e) {
+                    return ListTile(
+                      title: Text(e.toString().split('.').last),
+                      trailing: Radio(
+                        value: e,
+                        groupValue: controller.wantsNutritionFacts.value,
+                        onChanged: (NutritionFactResponse? value) {
+                          controller.selectWantsNutritionFacts(value!);
+                        },
+                      ),
+                    );
+                  }).toList(),
+                ],
+               );
+              default:
+               return const Text('Thank you for completing the survey!');
+            }
+          }),
+          ElevatedButton(
+            child: Text(controller.currentPage.value == 3 ? 'Finish' : 'Next'),
             onPressed: () {
-              Get.find<PreferenceController>().hasAllergies.value = true;
-              Get.to(const ThirdPage());
+              if (controller.currentPage.value == 3) {
+                Get.to(const SignupPage());
+              } else {
+                controller.nextPage();
+              }
             },
-            icon: const Icon(Icons.navigate_next),
-            label: const Text('Next'),
           ),
         ],
       ),
-    );
-  }
-}
-
-class ThirdPage extends StatelessWidget {
-  const ThirdPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Allergen Related Information')),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const Text('Which of the following allergens affect you?'),
-          ElevatedButton.icon(
-            onPressed: () => Get.to(const FourthPage()),
-            icon: const Icon(Icons.navigate_next),
-            label: const Text('Next'),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class FourthPage extends StatelessWidget {
-  const FourthPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Nutrition Facts')),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const Text('Do you want to see nutrition facts?'),
-         
-          ElevatedButton.icon(
-            onPressed: () {
-              
-              Get.find<PreferenceController>().wantNutritionFacts.value = true;
-              Get.to(const SignupPage());
-             
-            },
-            icon: const Icon(Icons.navigate_next),
-            label: const Text('Finish'),
-          ),
-        ],
-      ),
-    );
-  }
+    ),
+  );
+ }
 }
 
 class SignupPage extends  StatelessWidget{
@@ -139,9 +144,3 @@ class SignupPage extends  StatelessWidget{
 
 }
 
-class Preference {
-  late String preferences;
-  late List<String> choices;
-
-  Preference(this.preferences,  this.choices);
-}
