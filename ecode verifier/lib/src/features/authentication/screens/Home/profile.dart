@@ -33,7 +33,7 @@ class ProfileScreen extends StatelessWidget{
             ),
             const Gap(10),
 
-            Row(
+            Column(
               children: [
                 Expanded(flex: 3, child: Text("Name", style: Theme.of(context).textTheme.bodySmall, overflow: TextOverflow.ellipsis,)
                 ,),

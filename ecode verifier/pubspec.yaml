@@ -39,11 +39,12 @@ dependencies:
   get: ^4.6.6
   gap: ^3.0.1
   flutter_otp_text_field: ^1.1.1
-  firebase_core: ^2.24.0
-  firebase_auth: ^4.15.0
-  cloud_firestore: ^4.13.5
   mobile_scanner: ^3.5.5
   qr_flutter: ^4.1.0
+  firebase_core: ^2.24.2
+  cloud_firestore: ^4.14.0
+  firebase_auth: ^4.16.0
+  http: ^1.1.2
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "998818977233",
-    "project_id": "coastal-case-405300",
-    "storage_bucket": "coastal-case-405300.appspot.com"
+    "project_number": "873434983241",
+    "project_id": "ecode-verifier",
+    "storage_bucket": "ecode-verifier.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:998818977233:android:68eeeadb0e36f080bcfcf0",
+        "mobilesdk_app_id": "1:873434983241:android:9746f66c70f49711b88898",
         "android_client_info": {
           "package_name": "com.example.ecode_verrifier"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyCsPz2TKh3DDG6wd4FP-zSJ8XTsRvvLQ6Q"
+          "current_key": "AIzaSyDjf2WDsTciFjGyp6ENGsg2NiKZFsf6klY"
         }
       ],
       "services": {

@@ -1,33 +1,37 @@
 import 'package:get/get.dart';
 
-enum DietType { halalHaram, vegetarian, vegan }
+enum DietType { halalHaram, vegan, vegetarian }
+
 enum AllergyResponse { yes, no }
-enum Allergen { milk, fish, egg, gluten }
+
+enum Allergen { gluten, dairy, nuts, soy, none }
+
 enum NutritionFactResponse { yes, no }
 
 class QuestionController extends GetxController {
-  static QuestionController get instance => Get.find();
- var dietType = DietType.halalHaram.obs;
- var hasAllergies = AllergyResponse.no.obs;
- var allergen = Allergen.milk.obs;
- var wantsNutritionFacts = NutritionFactResponse.no.obs;
- var currentPage = 0.obs;
- void selectDietType(DietType value) {
-   dietType.value = value;
- }
+  RxInt currentPage = 0.obs;
+  Rx<DietType> dietType = DietType.halalHaram.obs;
+  Rx<AllergyResponse> hasAllergies = AllergyResponse.no.obs;
+  Rx<Allergen> allergen = Allergen.none.obs;
+  Rx<NutritionFactResponse> wantsNutritionFacts = NutritionFactResponse.yes.obs;
 
- void selectHasAllergies(AllergyResponse value) {
-   hasAllergies.value = value;
- }
+  void selectDietType(DietType value) => dietType.value = value;
+  void selectHasAllergies(AllergyResponse value) => hasAllergies.value = value;
+  void selectAllergen(Allergen value) => allergen.value = value;
+  void selectWantsNutritionFacts(NutritionFactResponse value) => wantsNutritionFacts.value = value;
 
- void selectAllergen(Allergen value) {
-   allergen.value = value;
- }
-
- void selectWantsNutritionFacts(NutritionFactResponse value) {
-   wantsNutritionFacts.value = value;
- }
   void nextPage() {
-  currentPage.value++;
- }
+    if (currentPage.value < 3) {
+      currentPage.value++;
+    }
+  }
+
+  Map<String, dynamic> getUserData() {
+    return {
+      'dietType': dietType.value.toString().split('.').last,
+      'hasAllergies': hasAllergies.value.toString().split('.').last,
+      'allergen': allergen.value.toString().split('.').last,
+      'wantsNutritionFacts': wantsNutritionFacts.value.toString().split('.').last,
+    };
+  }
 }

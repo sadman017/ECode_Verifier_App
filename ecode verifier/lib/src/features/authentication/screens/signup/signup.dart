@@ -8,6 +8,8 @@ import 'package:ecode_verifier/src/features/authentication/screens/signup/signup
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../models/firestore_service.dart';
+
 class QuestionPage extends StatelessWidget {
  final controller = Get.put(QuestionController());
 
@@ -96,19 +98,21 @@ class QuestionPage extends StatelessWidget {
                 ],
                );
               default:
-               return const Text('Thank you for completing the survey!');
+                return ElevatedButton(
+                  child: Text(controller.currentPage.value == 3 ? 'Finish' : 'Next'),
+                  onPressed: () {
+                    if (controller.currentPage.value == 3) {
+                      final userData = controller.getUserData();
+                      const userId = 'user123'; // Replace with actual user ID or authentication logic
+                      FirestoreService().saveUserData(userId, userData);
+                      Get.to(const SignupPage());
+                    } else {
+                      controller.nextPage();
+                    }
+                  },
+                );
             }
           }),
-          ElevatedButton(
-            child: Text(controller.currentPage.value == 3 ? 'Finish' : 'Next'),
-            onPressed: () {
-              if (controller.currentPage.value == 3) {
-                Get.to(const SignupPage());
-              } else {
-                controller.nextPage();
-              }
-            },
-          ),
         ],
       ),
     ),

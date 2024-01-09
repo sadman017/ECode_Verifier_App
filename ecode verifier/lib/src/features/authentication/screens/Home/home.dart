@@ -1,5 +1,6 @@
 import 'package:ecode_verifier/src/features/authentication/screens/Home/profile.dart';
 import 'package:ecode_verifier/src/features/authentication/screens/Home/scanner.dart';
+import 'package:ecode_verifier/src/features/authentication/screens/Home/search.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatefulWidget{
@@ -11,10 +12,10 @@ class Home extends StatefulWidget{
 
 class _HomeState extends State<Home> {
   int myIndex = 0;
-  List<Widget> widgetList = const [
-    ProfileScreen(),
-    Text('Search', style: TextStyle(fontSize: 40),),
-    Scanner(),
+  List<Widget> widgetList =  [
+    const ProfileScreen(),
+    Search(),
+    const Scanner(),
   ];
   @override
   Widget build(BuildContext context) {
@@ -23,9 +24,6 @@ class _HomeState extends State<Home> {
       index: myIndex,
       children: widgetList,
      ),
-    //  appBar: AppBar(
-    //   title: const Text("Ecode Verifier"),
-    //  ),
      bottomNavigationBar: BottomNavigationBar(
       type: BottomNavigationBarType.shifting,
       onTap: (index) {

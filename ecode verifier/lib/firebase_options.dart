@@ -44,37 +44,38 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyAKIJeIQo_KPzDxpY7YzqStwXSwp9ThLWg',
-    appId: '1:998818977233:web:a3cb8a0f2df12ac5bcfcf0',
-    messagingSenderId: '998818977233',
-    projectId: 'coastal-case-405300',
-    authDomain: 'coastal-case-405300.firebaseapp.com',
-    storageBucket: 'coastal-case-405300.appspot.com',
+    apiKey: 'AIzaSyBT_RXlepnoNEQmJFS01pNTGrwvRLe8KYw',
+    appId: '1:873434983241:web:27e894814d630c95b88898',
+    messagingSenderId: '873434983241',
+    projectId: 'ecode-verifier',
+    authDomain: 'ecode-verifier.firebaseapp.com',
+    storageBucket: 'ecode-verifier.appspot.com',
+    measurementId: 'G-NLRN3K623X',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyCsPz2TKh3DDG6wd4FP-zSJ8XTsRvvLQ6Q',
-    appId: '1:998818977233:android:68eeeadb0e36f080bcfcf0',
-    messagingSenderId: '998818977233',
-    projectId: 'coastal-case-405300',
-    storageBucket: 'coastal-case-405300.appspot.com',
+    apiKey: 'AIzaSyDjf2WDsTciFjGyp6ENGsg2NiKZFsf6klY',
+    appId: '1:873434983241:android:9746f66c70f49711b88898',
+    messagingSenderId: '873434983241',
+    projectId: 'ecode-verifier',
+    storageBucket: 'ecode-verifier.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyB16rGICUp7KHNnjOr6FomCYu_m6dZsUUU',
-    appId: '1:998818977233:ios:85a6bfdd2b8d38c5bcfcf0',
-    messagingSenderId: '998818977233',
-    projectId: 'coastal-case-405300',
-    storageBucket: 'coastal-case-405300.appspot.com',
+    apiKey: 'AIzaSyCVtkRBq_iYwKK0wb4BEkT8heNqkZANGhc',
+    appId: '1:873434983241:ios:01827f1b0d08e0afb88898',
+    messagingSenderId: '873434983241',
+    projectId: 'ecode-verifier',
+    storageBucket: 'ecode-verifier.appspot.com',
     iosBundleId: 'com.example.ecodeVerrifier',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyB16rGICUp7KHNnjOr6FomCYu_m6dZsUUU',
-    appId: '1:998818977233:ios:e2205a33e8ee7642bcfcf0',
-    messagingSenderId: '998818977233',
-    projectId: 'coastal-case-405300',
-    storageBucket: 'coastal-case-405300.appspot.com',
+    apiKey: 'AIzaSyCVtkRBq_iYwKK0wb4BEkT8heNqkZANGhc',
+    appId: '1:873434983241:ios:de5c2a4cc9c24503b88898',
+    messagingSenderId: '873434983241',
+    projectId: 'ecode-verifier',
+    storageBucket: 'ecode-verifier.appspot.com',
     iosBundleId: 'com.example.ecodeVerrifier.RunnerTests',
   );
 }
