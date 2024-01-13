@@ -6,7 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class SignupForm extends StatelessWidget{
-   SignupForm({super.key});
+  final String userId;
+  SignupForm({required this.userId, Key? key}) : super(key: key);
 
   final controller = Get.put(SignupController());
   final _formkey = GlobalKey<FormState>();
@@ -67,12 +68,17 @@ class SignupForm extends StatelessWidget{
             ),
             SizedBox(
               width: double.infinity,
-              child: ElevatedButton(onPressed: () {
-                if(_formkey.currentState!.validate()){
+              child: ElevatedButton(onPressed: (){
+                 if(_formkey.currentState!.validate()){
                   // SignupController.instance.registerUser(controller.email.text.trim(), controller.password.text.trim());
-                  final user = UserModal(email: controller.email.text.trim(), user: controller.userName.text.trim(), password: controller.password.text.trim(), mobileNo: controller.mobileNo.text.trim(),);
-                  SignupController.instance.createUser(user);
-
+                   final user = UserModal(
+                     id: userId,
+                     email: controller.email.text.trim(),
+                     user: controller.userName.text.trim(),
+                     password: controller.password.text.trim(),
+                     mobileNo: controller.mobileNo.text.trim(),
+                   );
+                   SignupController.instance.createUser(user);
                 }
               }, 
               child: Text(signup.toUpperCase()),

@@ -24,7 +24,7 @@ class Login extends  StatelessWidget{
                 image: welcomeScreen,
                 title: loginTitle,
                 ),
-                const LoginForm(),
+                LoginForm(),
                 const LoginFooterWidget(),
               ],
             ),

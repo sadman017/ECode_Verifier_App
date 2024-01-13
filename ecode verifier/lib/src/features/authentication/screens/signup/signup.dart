@@ -18,7 +18,7 @@ class QuestionPage extends StatelessWidget {
  @override
  Widget build(BuildContext context) {
   return Scaffold(
-    appBar: AppBar(title: const Text('Questions')),
+    appBar: AppBar(title: const Text('Preference')),
     body: Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -105,7 +105,7 @@ class QuestionPage extends StatelessWidget {
                       final userData = controller.getUserData();
                       const userId = 'user123'; // Replace with actual user ID or authentication logic
                       FirestoreService().saveUserData(userId, userData);
-                      Get.to(const SignupPage());
+                      Get.to(const SignupPage(userId: userId,));
                     } else {
                       controller.nextPage();
                     }
@@ -121,7 +121,8 @@ class QuestionPage extends StatelessWidget {
 }
 
 class SignupPage extends  StatelessWidget{
-  const SignupPage({super.key});
+  final String userId;
+  const SignupPage({required this.userId, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -135,7 +136,7 @@ class SignupPage extends  StatelessWidget{
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 FormHeaderWidget(size: size, image: welcomeScreen, title: signupTitle,),
-                SignupForm(),
+                SignupForm(userId: userId),
                 const SignupFooterWidget(),
               ],
             ),

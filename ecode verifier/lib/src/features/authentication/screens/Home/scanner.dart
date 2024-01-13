@@ -1,6 +1,9 @@
 import 'dart:convert';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ecode_verifier/src/features/authentication/controllers/preference_controller.dart';
+import 'package:ecode_verifier/src/features/authentication/screens/Home/qr_scanned.dart';
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-// import 'package:ecode_verifier/src/features/authentication/screens/Home/qr_scanned.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
@@ -8,8 +11,8 @@ import 'package:mobile_scanner/mobile_scanner.dart';
 const bgColor = Color(0xfffafafa);
 
 class Scanner extends StatefulWidget{
-  const Scanner({super.key});
-
+  Scanner({super.key});
+  final QuestionController controller = Get.find();
   @override
   State<Scanner> createState() => _ScannerState();
 }
@@ -75,7 +78,7 @@ class _ScannerState extends State<Scanner> {
                             for (final barcode in barcodes) {
                               debugPrint('Barcode found! ${barcode.rawValue}');
                               // Fetch product data from Open Food Facts API
-                              await fetchProductData(barcode.rawValue ?? 'defaultBarcode');
+                              await fetchProductData(barcode.rawValue ?? 'defaultBarcode', QuestionController());
                             }
                           },
                         ),
@@ -99,8 +102,43 @@ class _ScannerState extends State<Scanner> {
       ),
     );
   }
+  Future<void> fetchHalalHaramInfo(List<String>? ingredientsTags) async {
+    if (ingredientsTags == null) {
+      return;
+    }
 
-  Future<void> fetchProductData(String barcode) async {
+    bool matchFound = false;
+    try {
+      final halalHaramDoc = await FirebaseFirestore.instance.collection('Halal-Haram').doc('1').get();
+
+      if (halalHaramDoc.exists) {
+        final Map<String, dynamic> halalHaramData = halalHaramDoc.data() as Map<String, dynamic>;
+
+        for (String ingredient in ingredientsTags) {
+          if (halalHaramData.containsKey(ingredient)) {
+            final String halalHaramInfo = halalHaramData[ingredient].toString();
+            final String resultMessage =
+            halalHaramInfo.isNotEmpty ? 'Halal-Haram Information for $ingredient: $halalHaramInfo' : 'No halal-haram information available.';
+
+            setState(() {
+              productDetails += '\n\n$resultMessage';
+              matchFound = true;
+            });
+          }
+        }
+      }
+    } catch (error) {
+      debugPrint('Error fetching halal-haram information: $error');
+    }
+
+    if (!matchFound) {
+      // No match found, show general product details
+      setState(() {
+        productDetails += '\n\nNo specific halal-haram information available.';
+      });
+    }
+  }
+  Future<void> fetchProductData(String barcode, QuestionController controller) async {
     final apiUrl = 'https://world.openfoodfacts.org/api/v0/product/$barcode.json';
 
     try {
@@ -111,19 +149,79 @@ class _ScannerState extends State<Scanner> {
         final productData = json.decode(response.body);
         debugPrint('Product data: $productData');
 
-        // Extract specific information from the productData and update the UI
-        final String productName = productData['product']['product_name'] ?? 'Unknown Product';
-        final String ingredients = productData['product']['ingredients_text'] ?? 'No ingredients available';
+        // Extract specific information from the productData
+        final Map<String, dynamic> productInfo = productData['product'];
+
+        // Basic Product Information
+        final String productName = productInfo['product_name'] ??
+            'Unknown Product';
+        final String genericName = productInfo['generic_name'] ??
+            'Unknown Generic Name';
+        final String quantity = productInfo['quantity'] ?? 'Unknown Quantity';
+        final String packagingDetails = productInfo['packaging'] ??
+            'Unknown Packaging';
+        final String brands = productInfo['brands'] ?? 'Unknown Brands';
+
+        // Ingredients
+        final String ingredients = productInfo['ingredients_text'] ??
+            'No ingredients available';
+
+        // Allergens
+        final List<dynamic> allergensList = productInfo['allergens_tags'] ?? [];
+        final String allergens = allergensList.isNotEmpty ? allergensList.join(
+            ', ') : 'No allergens available';
+
+        // Nutritional Information
+        final Map<String, dynamic> nutrients = productInfo['nutriments'] ?? {};
+        final String energy = nutrients['energy-kcal'] ?? 'Unknown Energy';
+        final String fat = nutrients['fat'] ?? 'Unknown Fat';
+        final String carbohydrates = nutrients['carbohydrates'] ??
+            'Unknown Carbohydrates';
+        final String proteins = nutrients['proteins'] ?? 'Unknown Proteins';
+        final String salt = nutrients['salt'] ?? 'Unknown Salt';
+
+        // Labels/Certifications
+        final List<dynamic> labels = productInfo['labels_tags'] ?? [];
+        final String labelsInfo = labels.isNotEmpty
+            ? labels.join(', ')
+            : 'No labels/certifications available';
 
         setState(() {
-          productDetails = 'Product Name: $productName\n\nIngredients: $ingredients';
+          productDetails = '''
+        Product Name: $productName
+        Generic Name: $genericName
+        Quantity: $quantity
+        Packaging: $packagingDetails
+        Brands: $brands
+
+        Ingredients: $ingredients
+
+        Allergens: $allergens
+
+        Nutritional Information:
+        - Energy: $energy
+        - Fat: $fat
+        - Carbohydrates: $carbohydrates
+        - Proteins: $proteins
+        - Salt: $salt
+
+        Labels/Certifications: $labelsInfo
+      ''';
         });
-      } else {
+        if (controller.dietType.value == DietType.halalHaram) {
+          await fetchHalalHaramInfo(productData['product']['ingredients_tags']);
+        }
+
+        // Navigate to ProductDetailsPage with both sets of information
+        Get.to(ProductDetailsPage(productDetails: productDetails, halalHaramData: halalHaramData));
+      }
+    else {
         debugPrint('Failed to fetch product data. Status code: ${response.statusCode}');
       }
     } catch (error) {
       debugPrint('Error fetching product data: $error');
     }
   }
+
 
 }

@@ -1,13 +1,16 @@
 import 'package:ecode_verifier/src/constants/size.dart';
 import 'package:ecode_verifier/src/constants/text_string.dart';
-import 'package:ecode_verifier/src/features/authentication/screens/Home/home.dart';
 import 'package:ecode_verifier/src/features/authentication/screens/forget_password/forget_password_options/forget_password_modal_bottom_sheet.dart';
+import 'package:ecode_verifier/src/repository/authentication_repository/authentication_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class LoginForm extends StatelessWidget{
-  const LoginForm({super.key});
+  LoginForm({super.key});
 
+  final controller = Get.put(AuthenticationRepository());
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -17,6 +20,7 @@ class LoginForm extends StatelessWidget{
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             TextFormField(
+              controller: emailController,
               decoration: const InputDecoration(
                 prefixIcon: Icon(Icons.person_outline_outlined),
                 labelText: user,
@@ -26,6 +30,7 @@ class LoginForm extends StatelessWidget{
             ),
             const SizedBox(height: formHeight - 20,),
             TextFormField(
+              controller: passwordController,
                decoration: const InputDecoration(
                 prefixIcon: Icon(Icons.key_outlined),
                 labelText: pass,
@@ -54,7 +59,12 @@ class LoginForm extends StatelessWidget{
             ),
             SizedBox(
               width: double.infinity,
-              child: ElevatedButton(onPressed: () {Get.to(const Home());}, 
+              child: ElevatedButton( onPressed: () async {
+                await controller.loginWithEmailAndPassword(
+                  emailController.text.trim(),
+                  passwordController.text.trim(),
+                );
+              },
               child: Text(login.toUpperCase()),
               ),
             )

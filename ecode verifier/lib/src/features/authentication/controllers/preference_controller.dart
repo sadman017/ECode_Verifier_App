@@ -1,3 +1,5 @@
+import 'package:ecode_verifier/src/features/authentication/models/firestore_service.dart';
+import 'package:ecode_verifier/src/features/authentication/screens/signup/signup.dart';
 import 'package:get/get.dart';
 
 enum DietType { halalHaram, vegan, vegetarian }
@@ -14,6 +16,8 @@ class QuestionController extends GetxController {
   Rx<AllergyResponse> hasAllergies = AllergyResponse.no.obs;
   Rx<Allergen> allergen = Allergen.none.obs;
   Rx<NutritionFactResponse> wantsNutritionFacts = NutritionFactResponse.yes.obs;
+  int userIdCounter = 0;
+  final controller = Get.put(QuestionController());
 
   void selectDietType(DietType value) => dietType.value = value;
   void selectHasAllergies(AllergyResponse value) => hasAllergies.value = value;
@@ -33,5 +37,17 @@ class QuestionController extends GetxController {
       'allergen': allergen.value.toString().split('.').last,
       'wantsNutritionFacts': wantsNutritionFacts.value.toString().split('.').last,
     };
+  }
+
+  void finishQuestionnaire() {
+    final userData = controller.getUserData();
+    final userId = generateUserId(); // Call a function to generate the user ID
+    FirestoreService().saveUserData(userId, userData);
+    Get.to( SignupPage(userId: userId));
+  }
+
+  String generateUserId() {
+    userIdCounter++; // Increment the counter for each new user
+    return 'user$userIdCounter';
   }
 }
