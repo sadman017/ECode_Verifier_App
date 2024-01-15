@@ -15,7 +15,7 @@ class _HomeState extends State<Home> {
   List<Widget> widgetList =  [
     const ProfileScreen(),
     Search(),
-    const Scanner(),
+    Scanner(),
   ];
   @override
   Widget build(BuildContext context) {
@@ -25,6 +25,7 @@ class _HomeState extends State<Home> {
       children: widgetList,
      ),
      bottomNavigationBar: BottomNavigationBar(
+      backgroundColor: Colors.blue,
       type: BottomNavigationBarType.shifting,
       onTap: (index) {
         setState(() {

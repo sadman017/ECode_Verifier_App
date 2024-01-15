@@ -17,7 +17,7 @@ class Search extends StatelessWidget{
     }
 
     // Specify the fields you want to search on
-    List<String> searchFields = ['fieldName', 'anotherField'];
+    List<String> searchFields = ['E100', 'E101', 'E102', 'E103', 'E104', 'E105', 'E106'];
 
     final SearchController searchController = Get.find();
     searchController.search(searchFields, searchTerm);
