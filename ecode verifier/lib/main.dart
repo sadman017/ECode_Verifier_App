@@ -1,3 +1,4 @@
+//import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecode_verifier/firebase_options.dart';
 import 'package:ecode_verifier/src/features/authentication/screens/splash_screen/splash_screen.dart';
 import 'package:ecode_verifier/src/repository/authentication_repository/authentication_repository.dart';
@@ -9,6 +10,8 @@ import 'package:get/get.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform).then((value) => Get.put(AuthenticationRepository()));
+  // FirebaseFirestore firestore = FirebaseFirestore.instance;
+
   runApp(GetMaterialApp(
     debugShowCheckedModeBanner: false,
     theme: AppTheme.lightTheme,

@@ -47,7 +47,7 @@ class Welcome extends StatelessWidget{
                     width: 10.0,
                   ),
                   Expanded(child: ElevatedButton(
-                  onPressed: () { Get.to( QuestionPage()); },
+                  onPressed: () { Get.to( const QuestionPage()); },
                   
                   child: Text(signup.toUpperCase()),
                   )

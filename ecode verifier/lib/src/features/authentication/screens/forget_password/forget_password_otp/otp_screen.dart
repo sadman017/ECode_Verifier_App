@@ -1,7 +1,9 @@
 import 'package:ecode_verifier/src/constants/size.dart';
 import 'package:ecode_verifier/src/constants/text_string.dart';
+import 'package:ecode_verifier/src/features/authentication/screens/Home/home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class OTPScreen extends StatelessWidget{
@@ -39,7 +41,7 @@ class OTPScreen extends StatelessWidget{
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(onPressed: () {
-                
+                Get.to(() => const Home());
               }, child: const Text("Next"),),
             )
           ],

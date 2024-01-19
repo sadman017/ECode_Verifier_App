@@ -11,12 +11,19 @@ import 'package:get/get.dart';
 import '../../models/firestore_service.dart';
 
 class QuestionPage extends StatelessWidget {
- final controller = Get.put(QuestionController());
 
-   QuestionPage({super.key});
+
+ const  QuestionPage({super.key});
 
  @override
  Widget build(BuildContext context) {
+
+  final QuestionController controller ;
+    if(!Get.isRegistered<QuestionController>()) {
+         controller = Get.put(QuestionController());
+    } else {
+controller = Get.find<QuestionController>();
+    }
   return Scaffold(
     appBar: AppBar(title: const Text('Preference')),
     body: Center(
@@ -98,7 +105,10 @@ class QuestionPage extends StatelessWidget {
                 ],
                );
               default:
-                return ElevatedButton(
+                return const SizedBox.shrink();
+            }
+          }),
+          ElevatedButton(
                   child: Text(controller.currentPage.value == 3 ? 'Finish' : 'Next'),
                   onPressed: () {
                     if (controller.currentPage.value == 3) {
@@ -110,9 +120,7 @@ class QuestionPage extends StatelessWidget {
                       controller.nextPage();
                     }
                   },
-                );
-            }
-          }),
+                ),
         ],
       ),
     ),

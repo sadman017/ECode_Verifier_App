@@ -11,7 +11,9 @@ class SignupController extends GetxController{
   final password = TextEditingController();
   final userName = TextEditingController();
   final mobileNo = TextEditingController();
-  final userRepo = Get.put(UserRepository());
+
+ GlobalKey<FormState> formkey = GlobalKey<FormState>();
+
     var isPasswordVisible = false.obs;
 
   void togglePasswordVisibility() {
@@ -26,7 +28,7 @@ class SignupController extends GetxController{
   }
 
   Future<void> createUser(UserModal user) async{
-    await userRepo.createUser(user);
+    await UserRepository().createUser(user);
     phoneAuthentication(user.mobileNo);
     Get.to(() => const OTPScreen());
   }

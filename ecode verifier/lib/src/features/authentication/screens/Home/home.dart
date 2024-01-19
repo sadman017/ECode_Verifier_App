@@ -15,7 +15,7 @@ class _HomeState extends State<Home> {
   List<Widget> widgetList =  [
     const ProfileScreen(),
     Search(),
-    const Scanner(),
+     Scanner(),
   ];
   @override
   Widget build(BuildContext context) {
@@ -24,19 +24,34 @@ class _HomeState extends State<Home> {
       index: myIndex,
       children: widgetList,
      ),
-     bottomNavigationBar: BottomNavigationBar(
-      type: BottomNavigationBarType.shifting,
-      onTap: (index) {
-        setState(() {
-          myIndex = index;
-        });
-      },
-      currentIndex: myIndex,
-      items: const [
-      BottomNavigationBarItem(icon: Icon(Icons.person_2_outlined), label: 'Profile',),
-      BottomNavigationBarItem(icon: Icon(Icons.search_sharp), label: 'Search',),
-      BottomNavigationBarItem(icon: Icon(Icons.qr_code_scanner_outlined), label: 'Scanner',),
-     ]),
+    bottomNavigationBar: BottomNavigationBar(
+ type: BottomNavigationBarType.shifting,
+ backgroundColor: Colors.white, // set the background color
+ onTap: (index) {
+   setState(() {
+     myIndex = index;
+   });
+ },
+ currentIndex: myIndex,
+ items: const [
+   BottomNavigationBarItem(
+     icon: Icon(Icons.person_2_outlined), 
+     label: 'Profile',
+     backgroundColor: Colors.red, // set the background color for this item
+   ),
+   BottomNavigationBarItem(
+     icon: Icon(Icons.search_sharp), 
+     label: 'Search',
+     backgroundColor: Colors.green, // set the background color for this item
+   ),
+   BottomNavigationBarItem(
+     icon: Icon(Icons.qr_code_scanner_outlined), 
+     label: 'Scanner',
+     backgroundColor: Colors.blue, // set the background color for this item
+   ),
+ ],
+),
+
     );
   }
 }

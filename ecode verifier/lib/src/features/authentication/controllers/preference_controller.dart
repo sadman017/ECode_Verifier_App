@@ -17,7 +17,7 @@ class QuestionController extends GetxController {
   Rx<Allergen> allergen = Allergen.none.obs;
   Rx<NutritionFactResponse> wantsNutritionFacts = NutritionFactResponse.yes.obs;
   int userIdCounter = 0;
-  final controller = Get.put(QuestionController());
+
 
   void selectDietType(DietType value) => dietType.value = value;
   void selectHasAllergies(AllergyResponse value) => hasAllergies.value = value;
@@ -40,7 +40,7 @@ class QuestionController extends GetxController {
   }
 
   void finishQuestionnaire() {
-    final userData = controller.getUserData();
+    final userData = getUserData();
     final userId = generateUserId(); // Call a function to generate the user ID
     FirestoreService().saveUserData(userId, userData);
     Get.to( SignupPage(userId: userId));

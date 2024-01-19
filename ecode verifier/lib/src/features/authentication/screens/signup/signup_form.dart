@@ -7,16 +7,23 @@ import 'package:get/get.dart';
 
 class SignupForm extends StatelessWidget{
   final String userId;
-  SignupForm({required this.userId, Key? key}) : super(key: key);
+  const SignupForm({required this.userId, Key? key}) : super(key: key);
 
-  final controller = Get.put(SignupController());
-  final _formkey = GlobalKey<FormState>();
+
+
+  
   @override
   Widget build(BuildContext context) {
+final SignupController controller ;
+    if(!Get.isRegistered<SignupController>()) {
+         controller = Get.put(SignupController());
+    } else {
+controller = Get.find<SignupController>();
+    }
     return Container(
        padding: const EdgeInsets.symmetric(vertical: formHeight - 10),
       child:Form(
-        key: _formkey,
+        key: SignupController.instance.formkey,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -69,7 +76,7 @@ class SignupForm extends StatelessWidget{
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(onPressed: (){
-                 if(_formkey.currentState!.validate()){
+                 if(SignupController.instance.formkey.currentState!.validate()){
                   // SignupController.instance.registerUser(controller.email.text.trim(), controller.password.text.trim());
                    final user = UserModal(
                      id: userId,
