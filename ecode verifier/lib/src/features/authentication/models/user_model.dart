@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class UserModal{
    final String? id;
    final String user;
@@ -19,7 +21,12 @@ toJson(){
     "Email": email,
     "Password": password,
     "MobileNo": mobileNo
-  };
-}
+    };
+  }
+  factory UserModal.fromSnapshot(DocumentSnapshot<Map<String, dynamic>> document){
+    final data =document.data()!;
+    return UserModal(id: document.id, email: data['Email'], user: data['UserName'], password: data["Password"], mobileNo: data['MobileNo']);
+  }
+
 }
 
