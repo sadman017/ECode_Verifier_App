@@ -40,13 +40,13 @@ dependencies:
   gap: ^3.0.1
   flutter_otp_text_field: ^1.1.1
   #//  mobile_scanner: ^3.5.5
-  # qr_flutter: ^4.1.0
+
   firebase_core: ^2.24.2
   cloud_firestore: ^4.14.0
   firebase_auth: ^4.16.0
   http: ^1.1.2
   simple_barcode_scanner: ^0.0.8
-  #
+  
   flutter_barcode_scanner: ^2.0.0
   dio: ^5.3.3
   openfoodfacts: ^3.3.2

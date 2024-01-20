@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio/dio.dart';
 import 'package:ecode_verifier/src/constants/colors.dart';
 import 'package:ecode_verifier/src/features/authentication/controllers/preference_controller.dart';

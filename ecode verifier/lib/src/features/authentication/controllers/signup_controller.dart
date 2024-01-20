@@ -14,7 +14,7 @@ class SignupController extends GetxController{
 
  GlobalKey<FormState> formkey = GlobalKey<FormState>();
 
-    var isPasswordVisible = false.obs;
+  var isPasswordVisible = false.obs;
 
   void togglePasswordVisibility() {
     isPasswordVisible.value = !isPasswordVisible.value;

@@ -4,6 +4,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 FirebaseFirestore firestore = FirebaseFirestore.instance;
 
 class Search extends StatefulWidget {
+  const Search({super.key});
+
   @override
   _SearchState createState() => _SearchState();
 }
@@ -36,7 +38,7 @@ class _SearchState extends State<Search> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Search Page'),
+        title: const Text('Search Page'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -45,19 +47,19 @@ class _SearchState extends State<Search> {
           children: [
             TextField(
               controller: _searchController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 hintText: 'Enter Ecode to search',
               ),
             ),
-            SizedBox(height: 16.0),
+            const SizedBox(height: 16.0),
             ElevatedButton(
               onPressed: _search,
-              child: Text('Search'),
+              child: const Text('Search'),
             ),
-            SizedBox(height: 16.0),
+            const SizedBox(height: 16.0),
             Text(
               'Search Result: $_searchResult',
-              style: TextStyle(fontSize: 18.0),
+              style: const TextStyle(fontSize: 18.0),
             ),
           ],
         ),
