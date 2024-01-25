@@ -20,7 +20,7 @@ class SplashScreen extends StatelessWidget{
            Obx( () => AnimatedPositioned(
             top: splashController.animate.value ? 0 : -30,
             left: splashController.animate.value ? 0 : -30,
-            duration: const Duration(milliseconds: 1600),
+            duration: const Duration(milliseconds: 2000),
             child: const Image(
               image: AssetImage(splashIcon),)
               ),
@@ -28,10 +28,10 @@ class SplashScreen extends StatelessWidget{
               Obx( () => AnimatedPositioned(
                 top: 80,
                 left: splashController.animate.value ? defaultSize: -80,
-                duration: const Duration(milliseconds: 2000),
+                duration: const Duration(milliseconds: 2500),
                 child: AnimatedOpacity(
                   opacity: splashController.animate.value ? 1:0,
-                  duration: const Duration(milliseconds: 2000),
+                  duration: const Duration(milliseconds: 2500),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -44,17 +44,17 @@ class SplashScreen extends StatelessWidget{
                   Obx(
                     () => AnimatedPositioned(
                     bottom: splashController.animate.value ? 100:0,
-                    duration: const Duration(milliseconds: 2400),
+                    duration: const Duration(milliseconds: 2800),
                     child: AnimatedOpacity(opacity: splashController.animate.value ? 1:0, duration: const Duration(microseconds: 2000),
                     child: const Image(image: AssetImage(splashImage)
                     ),
                     ),
                     ),
                     ),
-                    Obx( () => AnimatedPositioned( duration: const Duration(milliseconds: 2400),
+                    Obx( () => AnimatedPositioned( duration: const Duration(milliseconds: 2800),
                       bottom: splashController.animate.value ? 60: 0,
                       right: defaultSize,
-                      child: AnimatedOpacity(opacity: splashController.animate.value ? 1:0, duration: const Duration(milliseconds: 2000),
+                      child: AnimatedOpacity(opacity: splashController.animate.value ? 1:0, duration: const Duration(milliseconds: 2500),
                       child: Container(
                         width: defaultContainerSize,
                         height: defaultContainerSize,

@@ -1,5 +1,6 @@
 import 'package:ecode_verifier/src/constants/size.dart';
 import 'package:ecode_verifier/src/constants/text_string.dart';
+import 'package:ecode_verifier/src/features/authentication/controllers/preference_controller.dart';
 import 'package:ecode_verifier/src/features/authentication/controllers/signup_controller.dart';
 import 'package:ecode_verifier/src/features/authentication/models/user_model.dart';
 import 'package:flutter/material.dart';
@@ -84,6 +85,10 @@ controller = Get.find<SignupController>();
                      user: controller.userName.text.trim(),
                      password: controller.password.text.trim(),
                      mobileNo: controller.mobileNo.text.trim(),
+                     dietType: QuestionController.instance.dietType.value.name,
+                     allergyResponse: QuestionController.instance.hasAllergies.value.name,
+                     allergen: QuestionController.instance.allergen.value.name,
+                     nutritionFactResponse: QuestionController.instance.wantsNutritionFacts.value.name,
                    );
                    SignupController.instance.createUser(user);
                 }

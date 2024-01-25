@@ -10,7 +10,7 @@ import 'package:get/get.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform).then((value) => Get.put(AuthenticationRepository()));
-  // FirebaseFirestore firestore = FirebaseFirestore.instance;
+  
 
   runApp(GetMaterialApp(
     debugShowCheckedModeBanner: false,

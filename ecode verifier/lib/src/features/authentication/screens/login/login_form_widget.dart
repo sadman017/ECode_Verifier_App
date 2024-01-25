@@ -1,3 +1,4 @@
+
 import 'package:ecode_verifier/src/constants/size.dart';
 import 'package:ecode_verifier/src/constants/text_string.dart';
 import 'package:ecode_verifier/src/features/authentication/screens/forget_password/forget_password_options/forget_password_modal_bottom_sheet.dart';
@@ -23,8 +24,8 @@ class LoginForm extends StatelessWidget{
               controller: emailController,
               decoration: const InputDecoration(
                 prefixIcon: Icon(Icons.person_outline_outlined),
-                labelText: user,
-                hintText: user,
+                labelText: email,
+                hintText: email,
                 border: OutlineInputBorder()
               ),
             ),

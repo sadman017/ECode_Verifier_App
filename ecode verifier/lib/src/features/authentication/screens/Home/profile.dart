@@ -17,36 +17,36 @@ class ProfileScreen extends StatelessWidget{
          child: Column(
            crossAxisAlignment: CrossAxisAlignment.start,
            children: [
-             CircleAvatar(
+             const CircleAvatar(
                radius: 50,
-               backgroundImage: AssetImage('assets/images/profile_picture.png'), // replace with your image path
+               backgroundImage: AssetImage('assets/images/download.jpeg'), 
              ),
              const SizedBox(height: 16.0),
              TextButton(
                onPressed: () {},
-               child: const Text('Change Profile Picture'),
                style: TextButton.styleFrom(
-                primary: Colors.blue,
-                onSurface: Colors.grey,
+                foregroundColor: Colors.blue,
+                disabledForegroundColor: Colors.grey,
                ),
+               child: const Text('Change Profile Picture'),
              ),
              const SizedBox(height: 30.0),
              const Text("Profile Information", style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
              const Gap(10),
              ListTile(
-               leading: Icon(Icons.fastfood, color: Colors.green),
-               title: Text("Food Preference", style: Theme.of(context).textTheme.headline6),
-               trailing: Icon(Icons.arrow_forward_ios, color: Colors.grey),
+               leading: const Icon(Icons.fastfood, color: Colors.green),
+               title: Text("Food Preference", style: Theme.of(context).textTheme.titleLarge),
+                trailing: const Icon(Icons.arrow_forward_ios, color: Colors.grey),
              ),
              ListTile(
-               leading: Icon(Icons.settings, color: Colors.purple),
-               title: Text("App Settings", style: Theme.of(context).textTheme.headline6),
-               trailing: Icon(Icons.arrow_forward_ios, color: Colors.grey),
+               leading: const Icon(Icons.settings, color: Colors.purple),
+               title: Text("App Settings", style: Theme.of(context).textTheme.titleLarge),
+               trailing: const Icon(Icons.arrow_forward_ios, color: Colors.grey),
              ),
              ListTile(
-               leading: Icon(Icons.contact_mail, color: Colors.orange),
-               title: Text("Contact Us", style: Theme.of(context).textTheme.headline6),
-               trailing: Icon(Icons.arrow_forward_ios, color: Colors.grey),
+               leading: const Icon(Icons.contact_mail, color: Colors.orange),
+               title: Text("Contact Us", style: Theme.of(context).textTheme.titleLarge),
+               trailing: const Icon(Icons.arrow_forward_ios, color: Colors.grey),
              ),
            ],
          ),

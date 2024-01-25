@@ -14,7 +14,7 @@ class _HomeState extends State<Home> {
   int myIndex = 0;
   List<Widget> widgetList =  [
     const ProfileScreen(),
-    Search(),
+     const Search(),
      Scanner(),
   ];
   @override

@@ -11,6 +11,8 @@ enum Allergen { gluten, dairy, nuts, soy, none }
 enum NutritionFactResponse { yes, no }
 
 class QuestionController extends GetxController {
+  static QuestionController get instance => Get.find();
+
   RxInt currentPage = 0.obs;
   Rx<DietType> dietType = DietType.halalHaram.obs;
   Rx<AllergyResponse> hasAllergies = AllergyResponse.no.obs;
