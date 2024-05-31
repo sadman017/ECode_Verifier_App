@@ -76,7 +76,7 @@ class AuthenticationRepository extends GetxController {
   Future<void> loginWithEmailAndPassword(String email,
       String password) async {
     try {
-      final credential = await FirebaseAuth.instance
+        await FirebaseAuth.instance
           .signInWithEmailAndPassword(
           email: email,
           password: password
