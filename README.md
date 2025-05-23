@@ -1,6 +1,6 @@
-# Your Project Name - A Brief Description
+# ECode Verifier - A Brief Description
 
-Welcome to **Your Project Name**, developed as part of our academic course **"Course Name"**. This project is built using **[Front-end Technology]** for the front end and **[Back-end Technology]** for the back end.
+Welcome to **ECode Verifier**, developed as part of our academic course **"Software Engineering"**. This project is built using **[Flutter]** for the front end and **[Firebase]** for the back end.
 
 ---
 
@@ -19,7 +19,7 @@ Welcome to **Your Project Name**, developed as part of our academic course **"Co
 
 ## 📌 Project Overview
 
-**Your Project Name** is a web application developed using modern web development methodologies. The development process followed these phases:
+**ECode Verifier** is a mobile application developed for both android and ios. The development process followed these phases:
 
 - ✅ Requirement Gathering  
 - ✅ Planning  
@@ -33,19 +33,22 @@ Welcome to **Your Project Name**, developed as part of our academic course **"Co
 
 ## ✨ Features
 
-- 🔐 [Feature 1]
-- 📦 [Feature 2]
-- 📊 [Feature 3]
-- 📱 [Feature 4]
+- 🔐 [Two Step Authentication]
+- 📦 [ECode(European Food Code) Verification through scanning]
+- 📊 [Search Different ECodes]
+- 📱 [Can check if the food is allergic to the user]
+- 🚦 [Can check if the food is halal, haram or vegeterian]
 
 ---
 
 ## 🛠️ Technology Stack
 
-- **Frontend:** [Front-end Technology]
-- **Backend:** [Back-end Technology]
-- **Database:** [Database Technology]
-- **Other Tools:** [Other tools used]
+- **Frontend:** [Flutter]
+- **Backend:** [Firebase]
+- **Database:** [Cloud Firestore]
+- **Authentication:** [Firebase Authentication]
+- **State Management:** [Getx]
+- **Other Tools:** [REST Api(openfoodfacts)]
 
 ---
 
