@@ -89,11 +89,11 @@ ECode_Verifier_App/
     flutter pub get
 
 3. **Set up Firebase:**
-   a. Create a new project in Firebase.
+   - Create a new project in Firebase.
 
-    b. Add Android/iOS app to the Firebase project.
+   - Add Android/iOS app to the Firebase project.
 
-   c. Download the google-services.json (for Android) or GoogleService-Info.plist (for iOS) and place it in the respective directory.
+   - Download the google-services.json (for Android) or GoogleService-Info.plist (for iOS) and place it in the respective directory.
 
 4. **Run the application:**
     ~~~bash
