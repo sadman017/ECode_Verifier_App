@@ -53,6 +53,7 @@ Welcome to **ECode Verifier**, developed as part of our academic course **"Softw
 ---
 
 ## 📁 Project Structure
+```
 ECode_Verifier_App/
 ├── assets/
 ├── lib/
@@ -66,7 +67,7 @@ ECode_Verifier_App/
 ├── pubspec.yaml
 ├── README.md
 └── LICENSE
-
+```
 ---
 
 ## ⚙️ Installation
