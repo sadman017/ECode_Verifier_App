@@ -18,3 +18,20 @@ pluginManagement {
 include ":app"
 
 apply from: "${settings.ext.flutterSdkPath}/packages/flutter_tools/gradle/app_plugin_loader.gradle"
+
+// Fix for AGP 8+ namespace requirement in older plugins
+gradle.allprojects { project ->
+    project.afterEvaluate {
+        if (project.plugins.hasPlugin("com.android.library")) {
+            if (project.android.namespace == null) {
+                def manifestFile = project.file("src/main/AndroidManifest.xml")
+                if (manifestFile.exists()) {
+                    def manifest = new XmlSlurper(false, false).parse(manifestFile)
+                    def packageName = manifest.@package.text()
+                    println("Setting namespace ${packageName} to project ${project.name}")
+                    project.android.namespace = packageName
+                }
+            }
+        }
+    }
+}

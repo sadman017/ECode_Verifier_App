@@ -12,7 +12,6 @@ class SplashScreen extends StatelessWidget{
   final splashController = Get.put(SplashScreenController());
   @override
   Widget build(BuildContext context) {
-    splashController.startAnimation();
     return  Scaffold(
       body: SafeArea(
       child: Stack(

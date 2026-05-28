@@ -1,12 +1,12 @@
 buildscript {
-    ext.kotlin_version = '1.7.10'
+    ext.kotlin_version = '1.9.24'
     repositories {
         google()
         mavenCentral()
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.3.0'
+        classpath 'com.android.tools.build:gradle:8.7.3'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
@@ -21,9 +21,19 @@ allprojects {
 rootProject.buildDir = '../build'
 subprojects {
     project.buildDir = "${rootProject.buildDir}/${project.name}"
-}
-subprojects {
     project.evaluationDependsOn(':app')
+
+    plugins.withId("com.android.library") {
+        if (android.namespace == null) {
+            def manifestFile = file("src/main/AndroidManifest.xml")
+            if (manifestFile.exists()) {
+                def manifest = new XmlSlurper(false, false).parse(manifestFile)
+                def packageName = manifest.@package.text()
+                println("Setting namespace ${packageName} to project ${name}")
+                android.namespace = packageName
+            }
+        }
+    }
 }
 
 tasks.register("clean", Delete) {

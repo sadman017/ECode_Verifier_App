@@ -1,4 +1,3 @@
-import 'package:ecode_verifier/src/features/authentication/models/firestore_service.dart';
 import 'package:ecode_verifier/src/features/authentication/screens/signup/signup.dart';
 import 'package:get/get.dart';
 
@@ -18,13 +17,12 @@ class QuestionController extends GetxController {
   Rx<AllergyResponse> hasAllergies = AllergyResponse.no.obs;
   Rx<Allergen> allergen = Allergen.none.obs;
   Rx<NutritionFactResponse> wantsNutritionFacts = NutritionFactResponse.yes.obs;
-  int userIdCounter = 0;
-
 
   void selectDietType(DietType value) => dietType.value = value;
   void selectHasAllergies(AllergyResponse value) => hasAllergies.value = value;
   void selectAllergen(Allergen value) => allergen.value = value;
-  void selectWantsNutritionFacts(NutritionFactResponse value) => wantsNutritionFacts.value = value;
+  void selectWantsNutritionFacts(NutritionFactResponse value) =>
+      wantsNutritionFacts.value = value;
 
   void nextPage() {
     if (currentPage.value < 3) {
@@ -34,22 +32,14 @@ class QuestionController extends GetxController {
 
   Map<String, dynamic> getUserData() {
     return {
-      'dietType': dietType.value.toString().split('.').last,
-      'hasAllergies': hasAllergies.value.toString().split('.').last,
-      'allergen': allergen.value.toString().split('.').last,
-      'wantsNutritionFacts': wantsNutritionFacts.value.toString().split('.').last,
+      'dietType': dietType.value.name,
+      'hasAllergies': hasAllergies.value.name,
+      'allergen': allergen.value.name,
+      'wantsNutritionFacts': wantsNutritionFacts.value.name,
     };
   }
 
   void finishQuestionnaire() {
-    final userData = getUserData();
-    final userId = generateUserId(); // Call a function to generate the user ID
-    FirestoreService().saveUserData(userId, userData);
-    Get.to( SignupPage(userId: userId));
-  }
-
-  String generateUserId() {
-    userIdCounter++; // Increment the counter for each new user
-    return 'user$userIdCounter';
+    Get.to(() => const SignupPage());
   }
 }

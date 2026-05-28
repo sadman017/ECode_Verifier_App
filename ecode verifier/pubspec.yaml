@@ -35,7 +35,7 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
-  google_fonts: ^6.1.0
+  google_fonts: 6.1.0
   get: ^4.6.6
   gap: ^3.0.1
   flutter_otp_text_field: ^1.1.1
@@ -49,7 +49,7 @@ dependencies:
   
   flutter_barcode_scanner: ^2.0.0
   dio: ^5.3.3
-  openfoodfacts: ^3.3.2
+  openfoodfacts: ^3.8.0
 dev_dependencies:
   flutter_test:
     sdk: flutter

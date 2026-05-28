@@ -1,6 +1,8 @@
+import 'package:ecode_verifier/src/features/authentication/controllers/user_controller.dart';
 import 'package:ecode_verifier/src/features/authentication/screens/Home/home.dart';
 import 'package:ecode_verifier/src/features/authentication/screens/welcome/welcome_screen.dart';
 import 'package:ecode_verifier/src/repository/authentication_repository/exception/signup_failure.dart';
+import 'package:ecode_verifier/src/repository/authentication_repository/user_repository/user_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -14,15 +16,44 @@ class AuthenticationRepository extends GetxController {
 
   @override
   void onReady() {
-    Future.delayed(const Duration(seconds: 5));
     firebaseUser = Rx<User?>(_auth.currentUser);
     firebaseUser.bindStream(_auth.userChanges());
-    ever(firebaseUser, _setIntialScreen);
   }
 
-  _setIntialScreen(User? user) {
-    user == null ? Get.offAll(() => const Welcome()) : Get
-        .offAll(() => const Home());
+  Future<void> checkAuthState() async {
+    final user = _auth.currentUser;
+    if (user == null) {
+      Get.offAll(() => const Welcome());
+    } else {
+      await _fetchUserData(user);
+      Get.offAll(() => const Home());
+    }
+  }
+
+  Future<void> _fetchUserData(User user) async {
+    try {
+      if (user.email != null) {
+        final userData =
+            await UserRepository.instance.getUserDetails(user.email!);
+        if (userData != null) {
+          UserController.instance.setUser(userData);
+        }
+      } else if (user.uid.isNotEmpty) {
+        final userData = await UserRepository.instance.getUserById(user.uid);
+        if (userData != null) {
+          UserController.instance.setUser(userData);
+        }
+      }
+    } catch (e) {
+      debugPrint('Failed to fetch user data: $e');
+      Get.snackbar(
+        "Error",
+        "Unable to load your profile data. Please check your connection.",
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.redAccent.withOpacity(0.1),
+        colorText: Colors.red,
+      );
+    }
   }
 
   Future<void> phoneAuthentication(String mobileNo) async {
@@ -32,10 +63,9 @@ class AuthenticationRepository extends GetxController {
           await _auth.signInWithCredential(credential);
         },
         verificationFailed: (e) {
-          if (e.code == "invalid-phone-nember") {
+          if (e.code == "invalid-phone-number") {
             Get.snackbar('Error', 'The number is not valid');
-          }
-          else {
+          } else {
             Get.snackbar('Error', 'Something went wrong, Try again');
           }
         },
@@ -54,46 +84,52 @@ class AuthenticationRepository extends GetxController {
     return credentials.user != null ? true : false;
   }
 
-  Future<void> createUserWithEmailAndPassword(String email,
-      String password) async {
+  Future<UserCredential> createUserWithEmailAndPassword(
+      String email, String password) async {
     try {
-      await _auth.createUserWithEmailAndPassword(
+      return await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
-      firebaseUser.value != null ? Get.offAll(() => const Home()) : Get
-          .to(() => const Welcome());
     } on FirebaseAuthException catch (e) {
       final ex = SignUpWithEmailAndPasswordFailure.code(e.code);
       debugPrint('FIREBASE AUTH EXCEPTION - ${ex.message}');
       throw ex;
-    }
-    catch (_) {
+    } catch (_) {
       const ex = SignUpWithEmailAndPasswordFailure();
       debugPrint('EXCEPTION - ${ex.message}');
       throw ex;
     }
   }
 
-  Future<void> loginWithEmailAndPassword(String email,
-      String password) async {
+  Future<void> loginWithEmailAndPassword(String email, String password) async {
     try {
-        await FirebaseAuth.instance
-          .signInWithEmailAndPassword(
-          email: email,
-          password: password
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: email,
+        password: password,
       );
-      Get.to(() =>const  Home());
     } on FirebaseAuthException catch (e) {
+      final String message;
       if (e.code == 'user-not-found') {
-        Get.snackbar("Error", 'No user found for that email.', snackPosition: SnackPosition.BOTTOM,
-            backgroundColor: Colors.redAccent.withOpacity(0.1),
-            colorText: Colors.red);
+        message = 'No user found for that email.';
       } else if (e.code == 'wrong-password') {
-        Get.snackbar("Error", 'Wrong password provided for that user.', snackPosition: SnackPosition.BOTTOM,
-            backgroundColor: Colors.redAccent.withOpacity(0.1),
-            colorText: Colors.red);
+        message = 'Wrong password provided for that user.';
+      } else {
+        message = e.message ?? 'Authentication failed.';
       }
+      Get.snackbar("Error", message,
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.redAccent.withOpacity(0.1),
+          colorText: Colors.red);
+    } catch (e) {
+      Get.snackbar("Error", 'Something went wrong. Please try again.',
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.redAccent.withOpacity(0.1),
+          colorText: Colors.red);
     }
+  }
 
-    Future<void> logout() async => await _auth.signOut();
+  Future<void> logout() async {
+    UserController.instance.clearUser();
+    await _auth.signOut();
+    Get.offAll(() => const Welcome());
   }
 }

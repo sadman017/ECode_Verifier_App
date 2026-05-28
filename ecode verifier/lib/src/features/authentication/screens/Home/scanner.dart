@@ -1,29 +1,26 @@
-import 'package:dio/dio.dart';
 import 'package:ecode_verifier/src/constants/colors.dart';
-import 'package:ecode_verifier/src/features/authentication/controllers/preference_controller.dart';
 import 'package:ecode_verifier/src/features/authentication/screens/Home/qr_scanned.dart';
-import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:openfoodfacts/openfoodfacts.dart';
 import 'package:simple_barcode_scanner/simple_barcode_scanner.dart';
 
+class Scanner extends StatefulWidget {
+  const Scanner({super.key});
 
-class Scanner extends StatefulWidget{
-  Scanner({super.key});
-  final QuestionController controller = Get.find();
   @override
   State<Scanner> createState() => _ScannerState();
 }
 
 class _ScannerState extends State<Scanner> {
-  String productDetails = '';
-  String result = "5449000214911";
+  String result = "";
 
   @override
   Widget build(BuildContext context) {
     var mediaQuery = MediaQuery.of(context);
-     var brightness = mediaQuery.platformBrightness;
+    var brightness = mediaQuery.platformBrightness;
     final isDarkMode = brightness == Brightness.dark;
+
     return Scaffold(
       backgroundColor: isDarkMode ? secondaryColor : primaryColor,
       appBar: AppBar(
@@ -44,215 +41,179 @@ class _ScannerState extends State<Scanner> {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            Expanded(
-              flex: 5,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text(
-                    "Place the QR code in the area",
-                    style: TextStyle(
-                      color: Colors.black87,
-                      fontSize: 18.0,
-                      fontWeight: FontWeight.bold,
-                      letterSpacing: 1.0,
-                    ),
-                  ),
-                  const Gap(10),
-                  Expanded(
-                    child: Column(
-                      children: [
-                        // MobileScanner(
-                        //   fit: BoxFit.contain,
-                        //   controller: cameraController,
-                        //   onDetect: (capture) async {
-                        //     final List<Barcode> barcodes = capture.barcodes;
-                        //     for (final barcode in barcodes) {
-                        //       debugPrint('Barcode found! ${barcode.rawValue}');
-                        //       // Fetch product data from Open Food Facts API
-                        //       await fetchProductData(barcode.rawValue ?? 'defaultBarcode', QuestionController());
-                        //     }
-                        //   },
-                        // ),
-                        // ElevatedButton(onPressed: () async{
-                        //   var res = await Get.to( const ProductDetailsPage());
-                        //   setState(() {
-                        //     if (res is String){
-                        //       result_barcode =res;
-                        //     }
-                        //   });
-                        // }, child: const Text('Open Scanner'),
-                        // ),
-                        // Text("Barcode Result: $result_barcode"),
-                       
-                         ElevatedButton(
-            onPressed: () async {
-              var res = await Navigator.push(
+            ElevatedButton.icon(
+              onPressed: () async {
+                var res = await Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (context) => const SimpleBarcodeScannerPage(),
-                  ));
-              setState(() {
-                if (res is String) {
-                  result = res;
-                }
-              });
-            },
-            child: const Text('Open Scanner'),
-          ),
-          const SizedBox(
-            width: double.maxFinite,
-            height: 20,
-          ),
-          Text('Barcode result: $result'),
-          const SizedBox(
-            height: 30,
-          ),
-          if (result != '')
-            ApiCallWidget(
-              code: result,
-            ),
-                      ],
-                    ),
                   ),
-                ],
-              ),
+                );
+                if (res is String && res.isNotEmpty && res != '-1') {
+                  setState(() {
+                    result = res;
+                  });
+                }
+              },
+              icon: const Icon(Icons.qr_code_scanner),
+              label: const Text('Scan Barcode'),
             ),
-            // const Gap(16),
-            // Expanded(
-            //   child: SingleChildScrollView(
-            //     child: Text(
-            //       productDetails,
-            //       style: const TextStyle(fontSize: 16),
-            //     ),
-            //   ),
-            // ),
+            const Gap(12),
+            if (result.isNotEmpty)
+              Chip(
+                avatar: const Icon(Icons.confirmation_number, size: 18),
+                label: Text('Barcode: $result'),
+                backgroundColor: Colors.blue.shade50,
+              ),
+            const Gap(12),
+            if (result.isNotEmpty)
+              Expanded(
+                child: ApiCallWidget(code: result),
+              ),
+            if (result.isEmpty)
+              const Expanded(
+                child: Center(
+                  child: Text(
+                    'Scan a barcode to see product details',
+                    style: TextStyle(color: Colors.black54, fontSize: 16),
+                  ),
+                ),
+              ),
           ],
         ),
       ),
     );
   }
-  
-
 }
+
 class ApiCallWidget extends StatefulWidget {
   const ApiCallWidget({super.key, required this.code});
   final String code;
+
   @override
   State<ApiCallWidget> createState() => _ApiCallWidgetState();
 }
-class _ApiCallWidgetState extends State<ApiCallWidget>{
-bool isButtonVisible =true;
-Future<FoodResponse?> getOpenFoodFactData(String code) async {
-    final dio = Dio();
+
+class _ApiCallWidgetState extends State<ApiCallWidget> {
+  bool _isLoading = true;
+  String? _errorMessage;
+  Product? _product;
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchProductData();
+  }
+
+  /// Fetch product data using the official openfoodfacts Dart package (API v3).
+  Future<void> _fetchProductData() async {
+    setState(() {
+      _isLoading = true;
+      _errorMessage = null;
+      _product = null;
+    });
+
     try {
-      final response = await dio.get(
-        'https://world.openfoodfacts.org/api/v2/product/$code.json?lc=en',
+      final configuration = ProductQueryConfiguration(
+        widget.code,
+        language: OpenFoodFactsLanguage.ENGLISH,
+        fields: [ProductField.ALL],
+        version: ProductQueryVersion.v3,
       );
-      return  FoodResponse.fromJson(response.data);
+
+      final ProductResultV3 result =
+          await OpenFoodAPIClient.getProductV3(configuration);
+
+      if (result.status == ProductResultV3.statusSuccess &&
+          result.product != null) {
+        setState(() {
+          _product = result.product;
+          _isLoading = false;
+        });
+      } else {
+        setState(() {
+          _errorMessage =
+              'Product not found for barcode "${widget.code}". Try another product.';
+          _isLoading = false;
+        });
+      }
     } catch (e) {
-      debugPrint(':: ${e.toString()}');
-      return null;
+      debugPrint('OpenFoodFacts error: $e');
+      setState(() {
+        _errorMessage = 'Failed to fetch product data. Please try again later.';
+        _isLoading = false;
+      });
     }
   }
 
-  FoodResponse? openFoodFactResult ;
+  /// Converts IngredientsAnalysisTags enum statuses to a list of string tags
+  List<String> _analysisTagsToList(IngredientsAnalysisTags? tags) {
+    if (tags == null) return [];
+    final list = <String>[];
+    if (tags.veganStatus != null) list.add(tags.veganStatus!.offTag);
+    if (tags.vegetarianStatus != null) list.add(tags.vegetarianStatus!.offTag);
+    if (tags.palmOilFreeStatus != null)
+      list.add(tags.palmOilFreeStatus!.offTag);
+    return list;
+  }
+
   @override
   Widget build(BuildContext context) {
-     return Column(
-      children: [
-        Text(
-          openFoodFactResult == null
-              ? 'No Data'
-              : (openFoodFactResult?.statusVerbose ?? ''),
-          textAlign: TextAlign.center,
+    if (_isLoading) {
+      return const Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            CircularProgressIndicator(),
+            Gap(12),
+            Text('Fetching product data...'),
+          ],
         ),
-        const SizedBox(
-          height: 20,
-        ),
-        Visibility(
-          visible: isButtonVisible,
-          maintainAnimation: true,
-          maintainSize: true,
-          maintainState: true,
-          child: ElevatedButton(
-            onPressed: () async {
-              isButtonVisible = false;
-              setState(() {});
-              openFoodFactResult = await getOpenFoodFactData(widget.code);
-              debugPrint(openFoodFactResult?.statusVerbose);
-              setState(() {});
-            },
-            child: const Text('Fetch Product Data'),
-          ),
-        ),
-        if (openFoodFactResult != null && openFoodFactResult!.product != null)
-            SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SizedBox(height: 10),
-                ListTile(
-                  leading: const Icon(Icons.warning, color: Colors.yellow),
-                  title: const Text(
-                    'Allergen:',
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                  subtitle: Text(
-                    openFoodFactResult!.product!.allergens ?? 'N/A',
-                     style: Theme.of(context).textTheme.bodyLarge,
-                  ),
-                ),
-                const SizedBox(height: 10),
-                ListTile(
-                  leading: const Icon(Icons.food_bank, color: Colors.orange),
-                  title: const Text(
-                    'Additives Original Tags:',
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                  subtitle: Text(
-                    openFoodFactResult!.product!.additivesOriginalTags?.join(', ') ?? 'N/A',
-                     style: Theme.of(context).textTheme.bodyLarge,
-                  ),
-                ),
-                // const SizedBox(height: 10),
-                // ListTile(
-                //   leading: const Icon(Icons.rice_bowl, color: Colors.red),
-                //   title: const Text(
-                //     'Ingredients:',
-                //     style: TextStyle(fontWeight: FontWeight.bold),
-                //   ),
-                //   subtitle: Text(
-                //     openFoodFactResult!.product!.ingredientsTextEn ?? 'N/A',
-                //   ),
-                // ),
-                const SizedBox(height: 10),
-                ListTile(
-                  leading: const Icon(Icons.fastfood, color: Colors.green),
-                  title: const Text(
-                    'Labels:',
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                  subtitle: Text(
-                    openFoodFactResult!.product!.labelsTags?.join(', ') ?? 'N/A', 
-                     style: Theme.of(context).textTheme.bodyLarge,
-                  ),
-                ),
-                 const SizedBox(height: 10),
-                ListTile(
-                  leading: const Icon(Icons.check_circle, color: Colors.green),
-                  title: const Text(
-                    'Halal-Haram:',
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                  subtitle: Text(
-                    "Halal", style: Theme.of(context).textTheme.bodyLarge,
-                  ),
-                ),
-              ],
+      );
+    }
+
+    if (_errorMessage != null) {
+      return Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(Icons.error_outline, size: 48, color: Colors.red.shade300),
+            const Gap(12),
+            Text(
+              _errorMessage!,
+              textAlign: TextAlign.center,
+              style: TextStyle(color: Colors.red.shade700),
             ),
-          ),
-      ],
-    );
+            const Gap(12),
+            ElevatedButton.icon(
+              onPressed: _fetchProductData,
+              icon: const Icon(Icons.refresh),
+              label: const Text('Retry'),
+            ),
+          ],
+        ),
+      );
+    }
+
+    if (_product != null) {
+      return SingleChildScrollView(
+        child: ProductResultCard(
+          productName: _product!.productName,
+          brands: _product!.brands,
+          quantity: _product!.quantity,
+          imageUrl: _product!.imageFrontUrl,
+          ingredientsText: _product!.ingredientsText,
+          nutriments: _product!.nutriments,
+          allergens: _product!.allergens?.names.join(', '),
+          nutriScore: _product!.nutriscore,
+          ecoScoreGrade: _product!.ecoscoreGrade,
+          ecoScoreValue: _product!.ecoscoreScore?.toInt(),
+          ingredientsAnalysisTags:
+              _analysisTagsToList(_product!.ingredientsAnalysisTags),
+        ),
+      );
+    }
+
+    return const SizedBox.shrink();
   }
 }

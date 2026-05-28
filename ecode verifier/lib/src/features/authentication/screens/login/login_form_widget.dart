@@ -1,17 +1,15 @@
-
 import 'package:ecode_verifier/src/constants/size.dart';
 import 'package:ecode_verifier/src/constants/text_string.dart';
+import 'package:ecode_verifier/src/features/authentication/controllers/login_controller.dart';
 import 'package:ecode_verifier/src/features/authentication/screens/forget_password/forget_password_options/forget_password_modal_bottom_sheet.dart';
-import 'package:ecode_verifier/src/repository/authentication_repository/authentication_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class LoginForm extends StatelessWidget{
+class LoginForm extends StatelessWidget {
   LoginForm({super.key});
 
-  final controller = Get.put(AuthenticationRepository());
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
+  final controller = Get.put(LoginController());
+
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -21,58 +19,69 @@ class LoginForm extends StatelessWidget{
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             TextFormField(
-              controller: emailController,
+              controller: controller.email,
               decoration: const InputDecoration(
                 prefixIcon: Icon(Icons.person_outline_outlined),
                 labelText: email,
                 hintText: email,
-                border: OutlineInputBorder()
+                border: OutlineInputBorder(),
               ),
             ),
-            const SizedBox(height: formHeight - 20,),
+            const SizedBox(
+              height: formHeight - 20,
+            ),
             TextFormField(
-              controller: passwordController,
-               decoration: const InputDecoration(
+              controller: controller.password,
+              obscureText: true,
+              decoration: const InputDecoration(
                 prefixIcon: Icon(Icons.key_outlined),
                 labelText: pass,
                 hintText: pass,
                 border: OutlineInputBorder(),
                 suffixIcon: IconButton(
-                  onPressed: null, 
+                  onPressed: null,
                   icon: Icon(Icons.remove_red_eye_sharp),
-
-                )
+                ),
               ),
             ),
             const SizedBox(
               height: formHeight - 20,
             ),
             // --Forget Password Button
-
             Align(
               alignment: Alignment.centerRight,
               child: TextButton(
-                onPressed: () { 
+                onPressed: () {
                   ForgetPasswordScreen.buildShowModalBottomSheet(context);
-                }, 
-                child: const Text(forgetPass)
+                },
+                child: const Text(forgetPass),
               ),
             ),
             SizedBox(
               width: double.infinity,
-              child: ElevatedButton( onPressed: () async {
-                await controller.loginWithEmailAndPassword(
-                  emailController.text.trim(),
-                  passwordController.text.trim(),
-                );
-              },
-              child: Text(login.toUpperCase()),
+              child: Obx(
+                () => ElevatedButton(
+                  onPressed: controller.isLoading.value
+                      ? null
+                      : () async {
+                          await controller.login();
+                        },
+                  child: controller.isLoading.value
+                      ? const SizedBox(
+                          width: 20,
+                          height: 20,
+                          child: CircularProgressIndicator(
+                            strokeWidth: 2,
+                            color: Colors.white,
+                          ),
+                        )
+                      : Text(login.toUpperCase()),
+                ),
               ),
             )
           ],
         ),
-    )
+      ),
     );
   }
-
 }

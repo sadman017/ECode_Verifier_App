@@ -1,18 +1,15 @@
-import 'package:ecode_verifier/src/repository/authentication_repository/authentication_repository.dart';
-import 'package:ecode_verifier/src/repository/authentication_repository/user_repository/user_repository.dart';
+import 'package:ecode_verifier/src/features/authentication/controllers/user_controller.dart';
+import 'package:ecode_verifier/src/features/authentication/models/user_model.dart';
 import 'package:get/get.dart';
 
-class ProfileController extends GetxController{
+class ProfileController extends GetxController {
   static ProfileController get instance => Get.find();
-  final _authRepo = Get.put(AuthenticationRepository());
-  final _userRepo = Get.put(UserRepository());
 
-  getUserData(){
-    final email = _authRepo.firebaseUser.value?.email;
-    if(email != null){
-      return _userRepo.getUserDetails(email);
-    }else {
-      Get.snackbar("Error", "Login to continue");
-    }
+  UserModal? get userData => UserController.instance.currentUser.value;
+
+  Future<void> refreshUserData() async {
+    // User data is automatically managed by AuthenticationRepository
+    // and kept in sync via UserController. This method exists for
+    // manual refresh if needed in the future.
   }
 }
