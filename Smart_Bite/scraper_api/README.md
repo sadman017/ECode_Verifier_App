@@ -185,3 +185,5 @@ curl "http://localhost:8000/api/halal?product_name=Munchy%27s"
 ## License
 
 MIT License — use at your own risk.
+# FASTAPI
+It is a python FASTAPI from JAKIM to help people identify whether the food is halal, haram or mubah.
